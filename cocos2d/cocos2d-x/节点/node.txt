@@ -1,0 +1,48 @@
+//节点类
+class Node{
+	 /**
+     * Allocates and initializes a node.
+     * @return A initialized node which is marked as "autorelease".
+     */
+    static Node * create();
+
+    /**
+     * Gets count of nodes those are attached to scene graph.
+     */
+    static int getAttachedNodeCount();
+		
+		addChild();
+}
+
+//序列类
+class ActionInterval{
+	//执行动作
+	Sequence* Sequence::create(FiniteTimeAction *action1, ...,nullptr)//最后以空结尾 
+	
+	//example
+	auto seq = Sequence::create(MoveBy, DelayTime, MoveTo, nullptr);
+}
+
+Director::sharedDirector()->getVisibleSize(); //被否决
+Director::getInstance()->getVisibleSize(); 		//替代
+
+
+//生成关键精灵
+// Generate polygon info automatically.
+auto pinfo = AutoPolygon::generatePolygon("filename.png");
+
+// Create a sprite with polygon info.
+auto sprite = Sprite::create(pinfo);
+
+//位置
+mySprite->setPosition(Vec2(0, 0));
+
+//锚点
+mySprite->setAnchorPoint(Vec2(0.5, 0.5)）;   //0.5, 0.5默认位置，在中心点上
+													0,0   是在左下角，1，1是是右上角
+
+//缩放
+mySprite->setScale(2.0);
+mySprite->setScaleX(2.0);
+mySprite->setScaleY(2.0);
+
