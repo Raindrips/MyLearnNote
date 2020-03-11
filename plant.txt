@@ -1,0 +1,224 @@
+#include <stdio.h>
+#include <easyx.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <Windows.h>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+//位置
+struct pos
+{
+	int x;
+	int y;
+};
+/
+struct plan
+{
+	pos planpos;
+	struct plan*next;//下一架飞机的位置
+};
+//子弹
+struct bullet
+{
+	pos bulletpos;
+	struct bullet *next;
+};
+pos Pos = { 150, 400 };/初始的位置
+plan *Plan=NULL;//自己的飞机
+bullet *myBullet = NULL;//自己子弹
+plan *enemyPlan = NULL;//敌机
+int enemyPlanNumber = 0;//敌机数量
+//初始化
+void init()
+{
+	srand((unsigned)time(NULL));//随机数种子
+	Plan = (plan*)malloc(sizeof(plan));//生成自己的飞机
+	enemyPlan = (plan *)malloc(sizeof(plan));//生成敌机
+	enemyPlan->next = NULL;
+	myBullet = (bullet*)malloc(sizeof(bullet));//生成子弹
+	myBullet->next = NULL;
+}
+//画飞机
+void drawMyPlan()
+{
+	
+	circle(Plan->planpos.x, Plan->planpos.y, 20);//画飞机
+
+}
+//生成敌机
+plan *newEnemyPlan()
+{
+	if (enemyPlanNumber < 3)
+	{
+		plan*b = (plan*)malloc(sizeof(plan));
+		b->planpos.x = rand() % 481 + 10;
+		b->planpos.y = 10;
+		b->next = NULL;
+		enemyPlanNumber++;
+		return b;
+	}
+	else return NULL;
+}
+//生成自己的子弹
+bullet* newmyBullet()
+{
+	bullet *b = (bullet *)malloc(sizeof(bullet));
+	b->bulletpos = Plan->planpos;
+	b->next = NULL;
+	return b;
+}
+//移动敌机
+void moveEnemyPlan()
+{
+	plan *p = enemyPlan->next;
+	while (p != NULL)
+	{
+		setfillcolor(RGB(98, 45, 238));
+		fillcircle(p->planpos.x, p->planpos.y, 10);
+		p->planpos.y+=2;
+		p = p->next;
+	}
+}
+//移动子弹
+void movemyBullet()
+{
+	bullet *b = myBullet->next;
+	while (b!=NULL)
+	{
+		b->bulletpos.y -= 2;
+		setfillcolor(RGB(0, 0, 0));
+		fillcircle(b->bulletpos.x, b->bulletpos.y, 10);
+		
+		b = b->next;
+	}
+}
+//操作
+void play()
+{
+	switch (_getch())
+	{
+	case 'w':
+		if (Plan->planpos.y-10>=20)//不让飞机走出屏幕
+		Plan->planpos.y -= 10;
+		break;
+	case 's':
+		if (Plan->planpos.y+10<=480)
+		Plan->planpos.y += 10;
+		break;
+	case 'a':
+		if (Plan->planpos.x-10>=20)
+		Plan->planpos.x -= 10;
+		break;
+	case 'd':
+		if (Plan->planpos.x+10<=480)
+		Plan->planpos.x += 10;
+		break;
+	case 'j':
+		//myBullet->next=newmyBullet();
+		bullet *b = newmyBullet();
+		bullet *q = myBullet;
+		while (q->next != NULL)
+		{
+			q = q->next;
+		}
+		b->next = q->next;
+		q->next = b;
+		break;
+	}
+}
+//销毁子弹
+void destroyBullet()
+{
+	bullet *b = myBullet->next;//指向比较删除的位置
+	bullet *p = myBullet;//指向上一个的前面
+	while (b != NULL)
+	{
+		if (b->bulletpos.y < -10)//找到了需要删除的子弹
+		{
+			p->next = b->next;
+			free(b);
+			break;
+		}
+		//指针后移
+		b = b->next;
+		p = p->next;
+	}
+}
+//销毁飞机
+void destroyPlan()
+{
+	plan *b = enemyPlan->next;//指向比较删除的位置
+	plan *p = enemyPlan;//指向上一个的前面
+	while (b != NULL)
+	{
+		if (b->planpos.y > 510)//找到了需要删除敌机
+		{
+			p->next = b->next;
+			free(b);
+			enemyPlanNumber--;
+			break;
+		}
+		//指针后移
+		b = b->next;
+		p = p->next;
+	}
+}
+//碰撞
+void collide()
+{
+	bullet*b = myBullet->next;//指向我的子弹
+	
+	while (b != NULL)
+	{ 
+		plan*p = enemyPlan->next;//指向敌机
+		while (p != NULL)
+		{
+			if ((int)sqrt(pow((double)b->bulletpos.y-p->planpos.y,2)+pow((double)p->planpos.x-b->bulletpos.x,2))<=19)
+			{
+				//clearcircle(p->planpos.x, p->planpos.y, 10);
+				Sleep(1000);
+			}
+			p = p->next;
+		}
+		b = b->next;
+	}
+}
+int main()
+{
+	int x = 1;
+	initgraph(500, 500);
+	init();
+	Plan->planpos = Pos;//初始化飞机位置
+	while (1)
+	{
+		if (x == 30)
+		{
+			plan *p = newEnemyPlan();
+			if (p != NULL)
+			{
+				p->next = enemyPlan->next;
+				enemyPlan->next = p;
+			}
+			x = 0;
+		}
+		drawMyPlan();
+		moveEnemyPlan();
+		
+		if (kbhit())//判断有没有键盘按下
+		{
+			play(); 
+		}
+		movemyBullet();
+		collide();
+		Sleep(10);
+		cleardevice();//清屏
+		destroyBullet();
+		destroyPlan();
+		x++;
+		
+	}
+	free(Plan);
+	closegraph();
+	return 0;
+}

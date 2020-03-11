@@ -1,0 +1,11 @@
+## 将 fork 出来的分支与原项目合并
+
+如何同步 Github fork 出来的分支
+
+```bash
+1. git remote add upstream  [url]
+2. git fetch upstream
+3. git merge upstream/master
+4. git commit -m "message"
+5. git push origin master    
+```
