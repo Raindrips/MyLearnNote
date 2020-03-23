@@ -29,4 +29,13 @@ cocos new (project name)
 -t template
 
 cd F:\game\Cocos\cocos2d-x-3.17\tools\cocos2d-console\bin
-python cocos new test2 -l cpp -d F:\game\Cocos\project -p com.a -e F:\game\Cocos\cocos2d-x-3.17  
+
+创建一个项目
+
+````shell
+cocos new 工程名称 -l cpp -d .
+````
+
+
+
+F:\game\Cocos\cocos2d-x-3.17  
