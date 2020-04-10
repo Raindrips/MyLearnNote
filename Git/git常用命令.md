@@ -53,7 +53,7 @@ git config [--global] user.email "[email address]"
  git mv [file-original] [file-renamed]
 ```
 
-### 代码提交s
+### 代码提交
 
 ```sh
 # 提交暂存区到仓库区
@@ -262,11 +262,11 @@ git config [--global] user.email "[email address]"
 # 重置暂存区的指定文件，与上一次commit保持一致，但工作区不变
  git reset [file]
 
-# 重置暂存区与工作区，与上一次commit保持一致
- git reset --hard
-
 # 重置当前分支的指针为指定commit，同时重置暂存区，但工作区不变
  git reset [commit]
+ 
+ # 重置暂存区与工作区，与上一次commit保持一致
+ git reset --hard
 
 # 重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致
  git reset --hard [commit]
@@ -278,14 +278,35 @@ git config [--global] user.email "[email address]"
 # 后者的所有变化都将被前者抵消，并且应用到当前分支
  git revert [commit]
 
-暂时将未提交的变化移除，稍后再移入
+# 暂时将未提交的变化移除，稍后再移入
  git stash
  git stash pop
 ```
 
 ### 其他
 
-```
+```sh
 # 生成一个可供发布的压缩包
  git archive
+ 
+ 
 ```
+
+### 删除工作区内容
+
+```
+## 删除暂存区内容
+git rm --cached 
+```
+
+### 清理仓库
+
+```sh
+## 清理仓库
+git gc
+
+## 查看跟踪的文件
+git ls-tree -r master --name-only
+
+```
+
