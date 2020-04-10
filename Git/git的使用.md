@@ -31,6 +31,8 @@ Git是一个**版本控制**的工具,版本控制是一种记录一个或若干
 
 
 
+# 创建自己的一个git项目
+
 ### git的配置
 
 **全局设置:**首先要设置一个用户名和邮箱,才能使用,格式如下
@@ -46,15 +48,13 @@ git config --global user.email "邮箱账号@qq.com"
 git init			#初始话git仓库
 ```
 
-添加要进行跟踪的文件
+添加要进行跟踪的文件到暂存区里
 
 ```shell
 git add [file]	#可以连续添加跟踪文件上
 ```
 
-
-
-添加代码到版本库
+添加代码到版本库,已经将该内存进行保存了
 
 ```shell
 git commit -m [提交的内容注释]
@@ -72,40 +72,44 @@ git rm [file]
 
 
 
-*检查状态*
-`git status`
+```sh
+# 检查状态
+git status
 
-
-
-#查看跟踪文件的的修改
-`git diff`
-
+# 查看跟踪文件的的修改
+git diff
 git diff HEAD -- [file]		#查看上次修改
+```
 
+
+
+```sh
 #上传最近的记录 从最近到最远的提交日志，我们可以看到3次提
 git log
 	 --pretty=oneline		#减少输出信息
 
 #命令历史，以便确定要回到未来的哪个版本
 git reflog	 
-	 
-#回到上一次版本
-`git reset`   				 
-	--soft  				不会修改文件,只会改变指针
-	--mixed  				改变暂存区,不改变工作区
+
+# 回到上一次版本
+git reset				 
+	--soft  				#不会修改文件,只会改变指针
+	--mixed  				#改变暂存区,不改变工作区
 		HEAD				#暂存区的地方撤销	
 	--hard commit_id		#回退到指定的版本,内容也会全部更变
-		
-
-#修改分支
-git checkout
-	-- [file] 撤销工作区的修改	
-
+	
+	
 #HEAD表示当前版本
 #上一个版本就是HEAD^
 #上上一个版本就是HEAD^^
 #100个版本可以写成HEAD~100
+```
 
+```sh
+#修改分支
+git checkout
+	-- [file] 撤销工作区的修改	
+```
 
 
 ### 工作区和暂存区			
@@ -117,31 +121,52 @@ Working Directory
 
 版本库（Repository）
 
-git add把文件添加进去，实际上就是把文件修改添加到暂存区
+git add 把文件添加进去，实际上就是把文件修改添加到暂存区
 
 git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支
 
 Git自动为我们创建了唯一一个master分支，所以，现在，git commit就是往master分支上提交更改
 
+## 远程仓库
 
-#远程仓库
+常见的远程仓库
 
++ [码云]:(https://gitee.com/)
+
++ [github]: (https://github.com/)
+
+  
+
+## 创建密钥
+
+能够识别计算机,让远程仓库可以识别这个电脑用户,没有密钥,每次远程推送都需要用户密码才行
+
+```sh
 ##创建秘钥
 ssh-keygen -t rsa -C "youremail@example.com"
 
-id_rsa是私钥，不能泄露出去，
-id_rsa.pub是公钥可以放心地告诉任何人
-Add SSH Key	id_rsa.pub
+#id_rsa是私钥，不能泄露出去，
+#id_rsa.pub是公钥可以放心地告诉任何人
+#Add SSH Key	id_rsa.pub
+```
 
+创建成功之后就会出现在 [C:\Users\用户名]
 
+```sh
+# 远程仓库添加
+git remote add origin [远程仓库]
 
-#远程仓库添加
-git remote add origin git@github.com:michaelliao/learngit.git
+#所有内容添加到远程仓库上
+git push -u origin
 
+##推送到主分支
+git push --set-upstream origin master
 
-所有内容添加到远程仓库上
 git push [origin] [branch]
 	-u origin master		第一次推送加上 -u
+```
+
+
 
 克隆一个仓库
 git clone [url]

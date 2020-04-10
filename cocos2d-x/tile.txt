@@ -1,0 +1,6 @@
+TMXTiledMap
+	//1.tmx文件
+	static create(string path);
+
+	//1.关卡名
+	TMXlayer* getLayer(string layer)
