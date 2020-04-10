@@ -18,8 +18,8 @@ typedef __int64 time_t;
 ### 计时器
 
 ```c++
-//计数从程序启动开始的时间,返回值是ms
-clcok_t clock();
+//计数从程序启动开始的时间,返回值单位是(毫秒)ms
+clock_t clock();
 
 //原型
 typedef long time_t;
@@ -42,7 +42,8 @@ struct tm{
 ```
 
 ```c
-//时间格式类型转换
+//时间格式类型转换  会被安全检查阻止使用
+//这个函数或者变量可能是不安全的. 建议使用 localtime_s 替代掉
 tm* localtime(time_t *time);
 
 //更安全的一种写法
