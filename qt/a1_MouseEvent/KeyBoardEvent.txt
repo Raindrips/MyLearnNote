@@ -1,0 +1,107 @@
+
+#include <QKeyEvent>
+
+protected: 
+
+    virtual void keyPressEvent(QKeyEvent *event);//按键按下事件
+
+    virtual void keyReleaseEvent(QKeyEvent *event);//按键释放
+
+******************************************************* 
+
+void Widget::keyPressEvent(QKeyEvent *event)//按键按下事件
+
+{
+
+     if(event‐>key() == Qt::Key_T)//当键盘按下T进入
+
+     {
+
+         qDebug() << "Key_T is pressed";
+
+     }
+
+     else if(event‐>key() == Qt::Key_Z)//当键盘按下Z进入
+
+     {
+
+         qDebug() << "Key_Z is pressed";
+
+     }
+
+     
+
+************************************************
+
+     if(event->modifiers()==Qt::ControlModifier)//第一次判断是否按下CTRL
+
+    {   //组合键盘
+
+        if(event->key()==Qt::Key_T)//判断是否按下T
+
+        {
+
+         qDebug() << "Ctrl + Key_T is pressed";
+
+        }
+
+    }
+
+}
+
+*******************************************************************
+
+void Widget::keyReleaseEvent(QKeyEvent *event)//按键释放
+
+{
+
+    if(event‐>key() == Qt::Key_T)
+
+    {
+
+        qDebug() << "Ctrl + Key_T is Released";
+
+    }
+
+     else if(event‐>key() == Qt::Key_Z)
+
+     {
+
+         qDebug() << "Ctrl + Key_Z is Released";
+
+     }
+
+}
+
+----------------------------------------------------------
+
+键盘按下获取当前屏幕坐标
+
+QCursor pos;
+
+QPoint p;
+
+void Widget::keyPressEvent(QKeyEvent *event)
+
+{
+
+    int key=event->key();
+
+    if(key==Qt::Key_Control)
+
+    {
+
+        qDebug()<<"获取到坐标";
+
+        p=pos.pos();
+
+        QString a;
+
+        a=QString("%1 : %2").arg(p.x()).arg(p.y());
+
+        ui->lineEdit->setText(a);
+
+    }
+
+}
+
