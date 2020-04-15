@@ -53,7 +53,7 @@ git config [--global] user.email "[email address]"
  git mv [file-original] [file-renamed]
 ```
 
-### 代码提交s
+### 代码提交
 
 ```sh
 # 提交暂存区到仓库区
