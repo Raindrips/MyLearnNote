@@ -42,7 +42,7 @@ git config --global user.name "用户名"
 git config --global user.email "邮箱账号@qq.com"
 ```
 
-开始创建git仓库的命令
+开始创建git仓库的命令,讲会在本地文件夹,创建一个`.git`的隐藏文件夹
 
 ```shell
 git init			#初始话git仓库
@@ -131,9 +131,9 @@ Git自动为我们创建了唯一一个master分支，所以，现在，git comm
 
 常见的远程仓库
 
-+ [码云]:(https://gitee.com/)
++ [码云]: https://gitee.com/
 
-+ [github]: (https://github.com/)
++ [github]: https://github.com/
 
   
 
@@ -160,37 +160,88 @@ git remote add origin [远程仓库]
 git push -u origin
 
 ##推送到主分支
-git push --set-upstream origin master
+git push -u origin master
 
 git push [origin] [branch]
-	-u origin master		第一次推送加上 -u
+	-u origin master		第一次推送加上 -u	
+```
+
+通过`pull` 更新远程仓库的内容
+
+```sh
+#将远程仓库上的更新的内容,推送到本地,然后同步
+git pull 
 ```
 
 
 
-克隆一个仓库
-git clone [url]
+## 克隆一个仓库
 
-# git分支管理
+将远程仓库上的内容下载到本地,成功之后,就会在本地生成一个文件夹
 
-+ 创建分支
-  git branch [branch]
+> git clone [远程域名]
 
-+ 切换分支
-  git checkout [branch]
-  -b [branch]		创建并切换
+```sh
+git clone https://gitee.com/Raindrips/git_learning_notes.git
+```
 
-+ 合并分支 指定分支到当前分支
-  git merge [branch]		
-  --abort 		撤销合并
+### git分支管理
 
- switch  切换分支 替换checkout
+#### 创建分支
 
- 删除分支：git branch -d <name>
+git branch [分支名称]
+
+ -d <name>  删除分支
+
+```sh
+## 查看所有分支和当前所在的分支
+git branch
+
+## 创建一个新分支  -b 表示创建完成并自动切换
+git branch test
+
+## 删除分支
+git branch -d test
+```
+
+#### 切换分支
+
+git checkout [分支名称]
+
+​	-b [branch]		创建并切换
+
+```sh
+## 切换分支
+git checkout test
+
+## 创建分支并切换
+git checkout -b test2
+```
+
+#### 合并分支
+
+合并分支应该先切换到主目录下,再合并新建的分支
+
+git merge [branch]		 指定分支到当前分支
+--abort 		撤销合并
+
+```sh
+## 合并分支命令
+git merge test
+
+## 撤销合并分支
+git merge --abort
+```
+
+ switch  切换分支  替换checkout
 
  设置git push和pull的默认远程分支
-    git branch --set-upstream-to=origin/master master
-	
+
+```sh
+ git branch --set-upstream-to=origin/master master
+```
+
+## git 日志
 
 Git 删除具体某个提交commit的方法
 
@@ -200,8 +251,6 @@ Git 删除具体某个提交commit的方法
    3.编辑文件，将要删除的commit之前的单词改为drop 
    4.保存文件退出大功告成 
    5.git log查看
-
-
 
 删除已经commit的大文件
 
