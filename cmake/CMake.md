@@ -29,7 +29,7 @@ cmake_minmun_required(VERSION 3.7);
 
 ```cmake
 ## 将本地的文件保存为变量 DIR_SRCS
-aux_source_directory(. DIR_SRCS);
+aux_source_directory("." DIR_SRCS);
 ```
 
 ## add_executable

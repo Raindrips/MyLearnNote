@@ -7,3 +7,5 @@ git rm -rf --cached [file]
 git add [file]/*
 ```
 
+status 和 commit乱码
+git config --global core.quotepath false
