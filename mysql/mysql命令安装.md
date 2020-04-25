@@ -1,0 +1,44 @@
+## 安装
+
+```sh	
+## 安装并显示控制台
+mysqld --install --show --console
+
+##如果成功了,
+mysqld -install
+```
+
+然后执行初始化命令
+
+```sh
+mysqld --initialize --console
+```
+
+
+
+## 修改密码
+
+```mysql
+## 修改root用户密码
+use mysql;
+ALTER USER 'root'@'localhost' IDENTIFIED BY '新密码';
+
+## 将密码初始化为空
+alter 
+
+FLUSH PRIVILEGES;
+flush privileges;
+```
+
+### 忘记密码
+
+```sh
+## 先关闭mysql服务
+net stop mysql
+
+## 然后通过特定方式启动服务
+mysqld -console -skip-grant-tables
+
+## 然后启动一个新的cmd界面,原来的不要关
+```
+
