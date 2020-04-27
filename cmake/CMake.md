@@ -25,7 +25,7 @@ cmake_minmun_required(VERSION 3.7);
 
 ## aux_source_directory
 
-将dir目录下所以的源文件和名字保存在变量`variable` 中
+将dir目录下所以的源文件(`.cpp` `.h` `.c`)和名字保存在变量`variable` 中
 
 ```cmake
 ## 将本地的文件保存为变量 DIR_SRCS
@@ -39,6 +39,7 @@ aux_source_directory("." DIR_SRCS);
 ```cmake
 ## 将文件编译成  Main 的可执行文件
 add_executable(Main "main.cpp" "test.cpp" "test.h")
+##将保存的变量添加上去
 add_executable(Main ${DIR_SRCS})
 ```
 

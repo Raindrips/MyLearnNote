@@ -19,13 +19,13 @@
 3. 第二行，声明了项目的名称(`recipe-01`)和支持的编程语言(CXX代表C++)：
 
    ```cmake
-   project(recipe-01 LANGUAGES CXX)
+   project(Main LANGUAGES CXX)
    ```
 
 4. 指示CMake创建一个新目标：可执行文件`hello-world`。这个可执行文件是通过编译和链接源文件`hello-world.cpp`生成的。CMake将为编译器使用默认设置，并自动选择生成工具：
 
    ```cmake
-   add_executable(hello-world hello-world.cpp)
+   add_executable(Main "main.cpp" "main.h")
    ```
 
 5. 将该文件与源文件`hello-world.cpp`放在相同的目录中。记住，它只能被命名为`CMakeLists.txt`
@@ -49,6 +49,10 @@ cmake --build .
 用其他方式生成,这个会自动生成一个`Makefile`文件
 
 ```sh
+ ## Linux 上生成
  cmake -G"Unix Makefiles" ../
+ 
+ ## windows 系统上生成
+ cmake ../ -G"Visual Studio 12 2013"
 ```
 
