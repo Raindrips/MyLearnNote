@@ -1,6 +1,0 @@
-python runtime
-
-cocos2d-x/tools/cocos2d-console/bin  
-
-创建项目 cocos.py new [Demo] -l lua -d [filepath]
-
