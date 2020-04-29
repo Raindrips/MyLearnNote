@@ -1,0 +1,25 @@
+
+#切换数据库
+use mysql; 
+
+#查看字段是否存在
+select authentication_string from user; 
+
+#将字段置为空
+update user set authentication_string='' where user='root';
+ 
+#修改密码为1234
+ALTER user 'root'@'localhost' identified by '1234';
+
+#刷新权限
+flush privileges;
+
+
+## 关闭安全模式
+
+### 查看是否是安全模式
+show variables like 'sql_safe_updates';
+
+
+set sql_safe_updates=on; #1  //安全模式打开状态
+set sql_safe_updates=off; #0 //安全模式关闭状态
