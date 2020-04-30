@@ -33,8 +33,11 @@
 6. 现在，可以通过创建`build`目录，在`build`目录下来配置项目：
 
    ```shell
+   ##创建build目录
    mkdir -p build
+   ##进入build目录
    cd build
+   ## 构建项目
    cmake ..
    ```
 

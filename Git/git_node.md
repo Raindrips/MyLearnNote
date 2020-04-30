@@ -67,7 +67,6 @@ git rm [file]
 	--cached [file]  #不删除物理文件，只将add进缓存的文件删除。
 	-r #有目录的话加此参数
 	-f #会删除物理文件
-
 ```
 
 
@@ -171,6 +170,9 @@ git push [origin] [branch]
 ```sh
 #将远程仓库上的更新的内容,推送到本地,然后同步
 git pull 
+
+## 将远程仓库内容拉取过来,但是不改变本地工作区的内容
+git fetch
 ```
 
 
@@ -182,7 +184,7 @@ git pull
 > git clone [远程域名]
 
 ```sh
-git clone https://gitee.com/Raindrips/git_learning_notes.git
+git clone https://gitee.com/Raindrips/git_learning.git
 ```
 
 ### git分支管理
@@ -222,8 +224,8 @@ git checkout -b test2
 
 合并分支应该先切换到主目录下,再合并新建的分支
 
-git merge [branch]		 指定分支到当前分支
---abort 		撤销合并
+> git merge [branch]		 指定分支到当前分支
+> --abort 		撤销合并
 
 ```sh
 ## 合并分支命令
@@ -243,14 +245,13 @@ git merge --abort
 
 ## git 日志
 
-Git 删除具体某个提交commit的方法
+Git 删除具体某个提交`commit`的方法
 
-1. git log获取commit信息 
+1. `git log`获取`commit`信息 
 2. git rebase -i (commit-id) 
    commit-id 为要删除的commit的下一个commit号 
-   3.编辑文件，将要删除的commit之前的单词改为drop 
-   4.保存文件退出大功告成 
-   5.git log查看
+   3. 编辑文件，将要删除的commit之前的单词改为drop 
+   4. 保存文件退出大功告成 
 
 删除已经commit的大文件
 
