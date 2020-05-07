@@ -8,26 +8,21 @@
 //创建精灵
 auto mySprite = Sprite::create("mysprite.png", Rect(0,0,40,40));
 
-//创建texture
-Texture2d t2d = TextureCache::getInstance()->addImage("hero.png");
+
 //创建帧
 SpriteFrame *frame0 = SpriteFrame::createWithTexture(t2d, Rect(32*0, 32*direction, 32, 32));
 //添加帧
 Vector<SpriteFrame*> animFrames;
 animFrames.pushBack(frame0);
+
 //创建动画
 Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.05f);
 
 //加入缓存
 AnimationCache::getInstance()->addAnimation(createNPCAnimation(), "name");
 
-auto action =Action::create
+auto action =Action::create()
 
-//通过文件名创建
-static Sprite *create(string &filename);
-
-//指定创建的裁剪区域 rotated 是否旋转纹理
-static Sprite *create(string &filename,Rect &rect,bool rotated=false);
 
 
 

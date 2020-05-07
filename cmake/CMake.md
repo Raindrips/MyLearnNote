@@ -139,5 +139,12 @@ find_library()
 file()
 ```
 
+# Cmake变量
+
+```cmake
+## 当前路径位置
+${CMAKE_CURRENT_SOURCE_DIR}
+```
+
 
 
