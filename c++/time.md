@@ -2,6 +2,8 @@
 
 ## C语言时间函数
 
+#include <time>
+
 ### 时间
 
 ```c
@@ -71,3 +73,27 @@ class system_clock{
 
 
 
+
+
+//获取时间,参数或返回值均是获取时间
+time_t time(time_t* t);
+
+//获取时间差
+difftime(time_t t1, time_t t2);
+
+
+
+//转化为结构体
+struct tm *gettime(const time_t *timeval);
+
+struct tm{
+	tm_sec			//秒0~61
+	tm_min			//分0~59
+	tm_hour			//小时0~23
+	tm_mday			//日期1~31
+	tm_mon			//月份0~11
+	tm_year			//年份从1900开始计算	
+	tm_wday			//星期几0~6
+	tm_yday			//年份中的日期0~265	
+	tm_isdst
+}
