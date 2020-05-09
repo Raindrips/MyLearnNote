@@ -19,6 +19,8 @@
 3. 第二行，声明了项目的名称(`recipe-01`)和支持的编程语言(CXX代表C++)：
 
    ```cmake
+   project(Main)
+   
    project(Main LANGUAGES CXX)
    ```
 
