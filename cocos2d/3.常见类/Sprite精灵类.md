@@ -1,18 +1,22 @@
 # 精灵
 
-
-
 创建一个精灵对象,通过`addChild`来显示
 
 ```c++
-//创建一个精灵对象
-static Sprite* create();
+class Sprite{
+    //创建一个精灵对象
+    static Sprite* create();
+   
 
-//从文件中创建一个精灵对象
-static Sprite* create(string& filename);
+    //从文件中创建一个精灵对象
+    static Sprite* create(string& filename);
 
-//从文件中创建一个精灵对象,指定纹理裁剪精灵
-static Sprite* create(string& filename,Rect &rect);
+    //从文件中创建一个精灵对象,指定纹理裁剪精灵
+    static Sprite* create(string& filename,Rect &rect);
+    
+     //指定创建的裁剪区域 rotated 是否旋转纹理
+    static Sprite *create(string &filename,Rect &rect,bool rotated=false);
+};
 ```
 
 **纹理:**按照特定的贴图映射到物体,使精灵看起来更加真实
@@ -40,7 +44,19 @@ static Sprite* createWithFrameName(string& sf);
 ```cpp
 //添加纹理图
 Director::getInstance()->getTextureCache()->addImage(string& filename);
+
 ```
+
+例:
+
+```cpp
+//创建texture
+auto t2d = Director::getInstance()->getTextureCache()->addImage("");
+
+
+```
+
+
 
 ### 精灵帧缓存
 
@@ -73,17 +89,24 @@ void removeSpriteUnusedSpriteFrame(string& plist);
 
 # SpriteBatchNode
 
-SpriteBatchNode类似于一个批处理节点:如果它包含子节点，它将在一个单独的OpenGL调用中绘制它们(通常称为“批处理绘制”)。
+SpriteBatchNode 批处理绘制
 
-SpriteBatchNode只能引用一个纹理(一个图像文件，一个纹理图集)。只有包含在纹理中的精灵才能添加到SpriteBatchNode中。所有添加到SpriteBatchNode的精灵都是在一个OpenGL ES draw调用中绘制的。如果SpriteBatchNode中没有添加sprite，那么每个SpriteBatchNode都需要一个OpenGL ES draw调用，这样效率会降低。
+类似于一个批处理节点:如果它包含子节点，它将在一个单独的OpenGL调用中绘制它们。
 
-限制:
+```cpp
+class SpriteBatchNode{
+    
+};
+```
 
-唯一被接受为子对象(或孙子辈、孙子辈等等)的对象是Sprite或Sprite的任何子类。粒子、标签和图层不能添加到SpriteBatchNode中。
-
-它的所有子元素不是别名就是反别名。不可能是混合的。这是因为“alias”是纹理的属性，所有精灵共享相同的纹理。
 
 
+### 图层打包工具:
+
++ Texture Packer
++ Zwoptex
++ ShoeBox
++ Sprite Sheet Packer
 
 
 
