@@ -39,8 +39,6 @@ class TMXLayer{
 }
 ```
 
-
-
 # TMXTiledMap
 
 ```cpp
@@ -123,9 +121,8 @@ auto obj=objectGroup->getObject("player");
 ## 根据地图对象操作地图
 
 ```cpp
-
 auto color=objectGroup->getObject("color");
 auto X=color["x"].asInt()/32;
-auto Y=
+auto Y=color["y"].asInt()/32;
 ```
 
