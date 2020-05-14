@@ -11,7 +11,7 @@ scanf的原型是
 
 C语言中,我们可以用可变参数来实现一些比较复杂的参数传递应对多种形式的功能
 例如:
- 
+
 + 控制台的输入		`printf	`	
 + 控制台的输出		`scanf`
 -----------------------------
@@ -94,5 +94,33 @@ int main()
   printf("%d\n", sum(3, 5, 10, 15));
 }
 
+```
+
+## 模板可变参数
+
+使用模板识别可变参数
+
+```cpp
+template <typename T,class ...args>
+void fn(T &t,args...a);
+```
+
+
+
+示例
+
+```cpp
+template <typename T>
+void print(const T& t)
+{
+	std::cout << t<<endl;
+}
+
+template <typename T,class ...args>
+void print(const T& t,const args&... a)
+{
+	std::cout << t;
+	print(a...);
+}
 ```
 
