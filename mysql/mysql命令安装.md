@@ -43,3 +43,24 @@ mysqld -console -skip-grant-tables
 mysql -uroot -p 
 ```
 
+## 操作步骤
+
+```sh
+##管理员的方式打开cmd
+##删除mysql服务
+sc stop mysql
+
+## 安装mysql
+mysqld --install --show --console
+mysqld -install
+mysqld --initialize --console
+## 然后会产生一个随机密码,找到随机密码复制然后记事本保存一下
+
+sc start mysql
+mysql -uroot -p保存的随机密码
+
+#进入了mysql服务页面
+use mysql;
+alter user 'root'@'localhost' IDENTIFIED by '新密码';
+```
+
