@@ -82,11 +82,11 @@ textField->setMaxLength(10);
 
 ```cpp
 class Menu{
-     Menu* static create(); 
-    
+    //创建
+    Menu* static create(); 
+
     //创建一个菜单键
-    Menu* create("CloseNormal.png", "CloseSelected.png",
-CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+    Menu* create(string normal, string close, schedule_selector schedule);
 }
 ```
 
@@ -111,6 +111,7 @@ for(auto& e:MenuItems){
     MenuItems.pushBack(menuitem);
 }
 
+//菜单
 auto menu = Menu::createWithArray(MenuItems);
 this->addChild(menu, 1);
 ```
