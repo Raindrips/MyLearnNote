@@ -2,7 +2,7 @@
 
 ## C语言时间函数
 
-#include <time>
+#include <time.h>
 
 ### 时间
 
@@ -27,6 +27,18 @@ clock_t clock();
 typedef long time_t;
 ```
 
+计算程序执行的时间
+
+```cpp
+clock_t start = clock();        //毫秒级别的
+cout << start << endl;
+for (size_t i = 0; i < INT_MAX; i++);;
+clock_t end = clock();
+cout << "花费时间" << end - start << "ms" << endl;
+```
+
+
+
 ## 日期
 
 ```c
@@ -43,14 +55,36 @@ struct tm{
 }
 ```
 
+使用格式转换函数
+
 ```c
 //时间格式类型转换  会被安全检查阻止使用
 //这个函数或者变量可能是不安全的. 建议使用 localtime_s 替代掉
-tm* localtime(time_t *time);
+struct tm* localtime(time_t *time);
+//转化为结构体,不安全
+struct tm *gettime(const time_t *timeval);
 
 //更安全的一种写法
 erron_t localtime_s(tm* _tm, time_t *time);
 ```
+
+使用格式化输出
+
+```cpp
+tm date;        //日期结构体
+time_t t = time(nullptr);
+localtime_s(&date, &t);
+cout << "当前时间:"
+    << date.tm_year + 1900 << "年"
+    << date.tm_mon + 1 << "月"
+    << date.tm_mday << "日"
+    << date.tm_hour << "时"
+    << date.tm_min << "分"
+    << date.tm_sec << "秒"
+    << endl;
+```
+
+
 
 
 
@@ -75,25 +109,3 @@ class system_clock{
 
 
 
-//获取时间,参数或返回值均是获取时间
-time_t time(time_t* t);
-
-//获取时间差
-difftime(time_t t1, time_t t2);
-
-
-
-//转化为结构体
-struct tm *gettime(const time_t *timeval);
-
-struct tm{
-	tm_sec			//秒0~61
-	tm_min			//分0~59
-	tm_hour			//小时0~23
-	tm_mday			//日期1~31
-	tm_mon			//月份0~11
-	tm_year			//年份从1900开始计算	
-	tm_wday			//星期几0~6
-	tm_yday			//年份中的日期0~265	
-	tm_isdst
-}
