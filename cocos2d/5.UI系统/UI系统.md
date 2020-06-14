@@ -1,10 +1,56 @@
-## UI系统  
+## UI系统
+
+
+
++ labelTTF
++ menu
++ tableview
+
+# cocos2d-x开发常用控件
+
+
 
 ## 文字标签
 
 1. Label   文字标签
 2. ~~LabelTTF~~  系统字体文字(已弃用)
 3. ~~BMFont~~ 位图字体文字(已弃用)
+
+## el
+
+label 是文字属性标签,使用createTTF 来创建
+
+```cpp
+auto labelttf=LabelTTF::create();	
+labelttf->setString("设置文字");
+labelttf->setFontSize(36);		//设置字体大小
+labelttf->setPosition(20,20);	//设置窗口大小
+
+auto Label=Label::createTTF(); 		//
+```
+
+### LabelTTF
+
+## TextFeidTTF
+
+本文输入框,可以输入文字
+
+```cpp
+class TextFeidTTF{
+    //创建文本
+	static TextFeidTTF* textFieldWithPlaceHolder(string input,string font,int size);
+    Vec2 getBoundingBox();
+    //添加焦点,使文本可以输入
+    void attachWithME();
+    //移除焦点
+    void detachWithME();
+    
+};
+```
+
+
+
+
 
 ### LabelTTF
 
@@ -90,7 +136,7 @@ class Menu{
 }
 ```
 
-创建一个图片按钮
+菜单组建,创建一个图片按钮,需要两张图片,一个是按下的状态,一个是没按下的,并需要要回调函数,来表示被按下的状态
 
 ```cpp
 auto m=MenuItemImage::create("CloseNormal.png", "CloseSelected.png",
@@ -174,6 +220,10 @@ this->addChild(checkbox);
 
 
 
+
+
+
+
 ## 进度条(LoadingBar)
 
 设置一个进度条,向右填充
@@ -225,4 +275,18 @@ this->addChild(slider);
 //每帧执行代码
 schedule(schedule_selector(&类名::函数名));
 ```
+
+## log
+
+输出日志
+
+使用  `CCLOG` 宏来输出
+
+## MessageBox
+
+```cpp
+MessageBox("消息内容","消息框");
+```
+
+
 

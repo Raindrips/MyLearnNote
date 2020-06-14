@@ -1,12 +1,8 @@
-图层打包工具:	
-    Texture Packer
-    Zwoptex
-    ShoeBox
-    Sprite Sheet Packer
-
-
+```cpp
 //创建精灵
 auto mySprite = Sprite::create("mysprite.png", Rect(0,0,40,40));
+```
+
 
 
 //创建帧
@@ -42,7 +38,7 @@ plist文件
 	SpriteFrameCache	能够使用精灵表中的创建精灵缓存
 		SpriteFrameCache::getInstance()->addSpriteFrameWithFile("1.plist");
 		auto moutainal = Sprite::createWithSpriteFrames("moutain.png");
-
+	
 	AnimationCache		动画缓存主要用于精灵动画，精灵动画每一帧都是从动画获取的
 
 
@@ -59,13 +55,21 @@ void cleanup()														//层对象被清除时调用
 auto director = Director::getInstance();
 	void runWithScene(Scene *scene); 	//运行场景。
 
-	void replaceScene(Scene* scene); 	//切换场景
+```cpp
+void replaceScene(Scene* scene); 	//切换场景
 
-	void pushScene(Scene* scene);			//添加场景,并切换到那个场景
+void pushScene(Scene* scene);			//添加场景,并切换到那个场景
 
-	void popScene(Scene* scene);			//回到上次场景，配合pushScene使用
+void popScene(Scene* scene);			//回到上次场景，配合pushScene使用
 
-	void popToRootScene()							//回到跟场景
+void popToRootScene()							//回到跟场景
+```
 
-	
+​	
+
+日志文件
+
+```cpp
+CCLOG(const char* format,...);
+```
 
