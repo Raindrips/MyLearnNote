@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>image/ico/browser.ico</file>
+        <file>image/ico/game.ico</file>
+        <file>image/ico/icon.ico</file>
+        <file>image/ico/opengl.ico</file>
+        <file>image/ico/qt-logo.ico</file>
+    </qresource>
+    <qresource prefix="/jpg">
+        <file>image/png/yellowStone.jpg</file>
+    </qresource>
+</RCC>
