@@ -32,30 +32,50 @@
 独立性
 
 ### 进程状态
+```c
+#define TASK_RUNNING		    0
+#define TASK_INTERRUPTIBLE		1
+#define TASK_UNINTERRUPTIBLE	2
+#define TASK_STOPPED	     	4
+#define TASK_ZOMBIE		   		8
 ```
-define TASK_RUNNING		    0
-define TASK_INTERRUPTIBLE	1
-define TASK_UNINTERRUPTIBLE	2
-define TASK_STOPPED	     	4
-define TASK_ZOMBIE		   8
-``` 
 ![](https://i.imgur.com/gSp0isA.png)
 
 ### 进程基本属性
-#### 进程号 
 
-pid_t getpid(void);
-pid_t getppid(void);
-getpgid();
+#### 进程号
+
+
+
+```c
+pid_t getpid();
+pid_t getppid();
+pid_t getpgid();
+```
+
+
 
 #### 用户号 
+
+
+```c
 pid_t getpgid(pid_t pid);
 int setuid(uid_t uid);
-euid uid 
+euid uid(); 
+```
+
+
 
 #### 会话号
+
+
+
+```c
 pid_t getsid(pid_t pid);
 setsid（void）；
+```
+
+
 
 
 #### 控制终端
@@ -94,6 +114,7 @@ chmod u-s /usr/bin/passwd
 #### 进程创建
 fork 
 pid_t fork(void);
+
 > 0
 ==0
 
@@ -130,15 +151,28 @@ execv			1				1
 execvp	1						1	
 execve			1		1
 
-       int execl(const char *path, const char *arg, ...);
-       int execlp(const char *file, const char *arg, ...);
-			会从$PATH环境变量中找到目录
-       int execle(const char *path, const char *arg,
-                  ..., char * const envp[]);
-       int execv(const char *path, char *const argv[]);
-       int execvp(const char *file, char *const argv[]);
-       int execve(const char *file, char *const argv[],
-                   char *const envp[]);
+|        | 文件名 | 路径名 | 参数表 | 使用argv |
+| ------ | ------ | ------ | ------ | -------- |
+| execl  |        | 1      | 1      |          |
+| execlp | 1      |        | 1      |          |
+| execle |        | 1      | 1      |          |
+| execv  |        | 1      |        | 1        |
+| execvp | 1      |        |        | 1        |
+| execve |        | 1      | 1      |          |
+
+
+
+```c
+   int execl(const char *path, const char *arg, ...);
+   int execlp(const char *file, const char *arg, ...);
+		会从$PATH环境变量中找到目录
+   int execle(const char *path, const char *arg,
+              ..., char * const envp[]);
+   int execv(const char *path, char *const argv[]);
+   int execvp(const char *file, char *const argv[]);
+   int execve(const char *file, char *const argv[],
+               char *const envp[]);
+```
 
 
 ### 回收进程资源
