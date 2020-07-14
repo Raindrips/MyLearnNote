@@ -14,6 +14,12 @@ mysqld -install
 mysqld --initialize --console
 ```
 
+初始化数据库
+
+```sh
+mysqld --initialize-insecure --console
+```
+
 
 
 ## 修改密码
@@ -21,7 +27,7 @@ mysqld --initialize --console
 ```mysql
 ## 修改root用户密码
 use mysql;
-ALTER USER 'root'@'localhost' IDENTIFIED BY '新密码';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '1234';
 
 ## 将密码初始化为空
 alter 
