@@ -122,3 +122,24 @@ auto currentPos = node->getPosition();
 node->setPosition(currentPos + diff);
 ```
 
+
+
+
+
+```cpp
+auto map = TMXTiledMap::create("res/1.tmx");
+auto size = Director::getInstance()->getVisibleSize();
+auto layer = map->getLayer("1");
+addChild(map, 0, 1); // with a tag of '99'
+
+//创建节点
+Node *node = Node::create();
+node->setContentSize(Size(10, 10));
+//添加节点
+this->addChild(node, 0, 123);  //123 是 tag
+//查找节点
+Node *temp_node = this->getChildByTag(123);
+//移除节点，并停止节点的一切动作
+this->removeChildByTag(123, true);
+```
+

@@ -1,0 +1,14 @@
+包含响应请求信息
+
+//返回响应用的编码
+String getCharaterEncoding() 
+
+//设置响应的MIME类型
+void setContentType(String type);
+
+//返回可以向客户端输出字符的一个对象
+PrintWriter getWriter()
+
+//重新定位客户端请求,等同于两次请求,前一次请求不会保存
+sendRedirect(java.lang.String location)
+

@@ -1,0 +1,29 @@
+error 无法捕获的异常  
+	VirtualMachineError  --虚拟机异常	
+	OutOfMemoryError		 --内存溢出异常
+	ThreadDeath					--线程死锁
+	
+	
+Exception
+	-RunTimeException
+		
+	-Checked Exception
+
+System.exit(1)
+异常处理
+		try{
+			//语句块
+			
+		}
+		catch(){
+			//捕获异常后执行的语句
+		}
+		catch(Exception e){
+			//多个catch块
+			
+		}
+		finally{
+			//无论是否出现异常,都会执行的语句
+			//finally里出现return 会始终最终执行 return 语句并抵消其他catch块的return			
+		}
+		

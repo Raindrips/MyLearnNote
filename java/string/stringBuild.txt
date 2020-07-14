@@ -1,0 +1,8 @@
+StringBuilder
+	StringBuilder delete(int start,int end);
+	StringBuilder insert(int offer ,String str)
+	StringBuilder replace() 
+
+StringBuilder 和 StringBuffer
+StringBuffer安全
+StringBuilder

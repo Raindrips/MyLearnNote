@@ -1,0 +1,20 @@
+//return 指定参数的值
+String getParameter(String name)
+
+//返回包含name所有值的数组
+String[] getParameterValues(String name);
+
+//储存此请求中的属性
+void setAttribute(string,Object)
+
+//返回指定的属性值
+object getAttribute(String name);
+
+//得到请求体的MIME类型
+String getContentType()
+
+//返回请求协议类型的版本号
+String getProtocol()
+
+//返回请求用到的服务器主机名
+String getServerName()

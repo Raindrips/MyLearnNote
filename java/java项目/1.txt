@@ -1,0 +1,75 @@
+Centos6.8 bit
+
+win 7
+
+原配置 阿里云
+
+Centos6
+	rpm -qa |grep jdk   ##查看自带 jdk
+	sudo yum remove `uninstall`
+	sudo rpm-ivh jdk-7u80-linux-x64.rpm
+	sudo chmod 777 jdk-7u80-linux-x64.rpm
+默认安装路径
+		/usr/java/
+		
+环境变量
+	sudo vim /ect/profile
+	
+	export JAVA_HOME=/usr/java/jdk1.7
+	export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar
+	
+在exprot PATH添加$JAVA_HOME/bin
+
+source/ect/profile  #使配置失效
+
+java -version   #验证是否安装成功
+
+
+vsftpd 
+
+(Linux)
+安装
+	执行 sudo yum -y install vsftpd
+	rpm -qa | grep vsftpd #验证是否安装成功
+	/etc/vsftpd/vsftpd.conf  #配置文件
+	
+	创建文件夹 mkdir `dirfile`
+	添加匿名用户 useradd ftpuser -d /ftpfile -s /sbin/nologin
+	修改ftpfile权限 chown -R ftpuser.ftpuser `file`
+	
+	passwd ftpuser #设置ftp密码
+	
+	cd /ect/vsftpd
+	sudo vim chroot_list
+	将虚拟配置添加到引用中  vsftpd.conf
+	
+	sudo vim /ect/selinux/config
+	修改 SELINUX=disabled
+	sudo setsebool -P ftp_home_dir 1
+	
+	详细说明
+	learning.happymmall.com/env.html
+	本项目配置说明
+	learning.happymmall.com/vspdconfig/vsftpd.conf.readme.html
+	配置学习
+	download.happymmall.com/vsftpdconfig.doc
+	
+	防火墙配置
+	--
+	
+	sudo service vsftpd start --启动
+	sudo service vsftpd stop --关闭
+	sudo service vsftpd restart --重启
+	
+(Windows)
+下载windos版本
+learning.happymmall.com/
+或下载ftp
+download,happymmall.com/FTPserver.rar
+ipconfig 查看id
+
+下载git
+
+
+
+	
