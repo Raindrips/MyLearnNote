@@ -9,9 +9,12 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+    //文件操作
     QFile file("./writeFile.xml");
+    //打开文件
     file.open(QFile::WriteOnly | QFile::Truncate);
 
+    //xmlStreamWrite类
     QXmlStreamWriter stream(&file);
 
     stream.setCodec(QTextCodec::codecForName("utf-8"));

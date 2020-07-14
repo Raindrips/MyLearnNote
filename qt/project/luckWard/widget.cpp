@@ -46,7 +46,8 @@ void Widget::rtTimerOutSlot()
         rtTimer.stop();  //停止计时 界面更新事件
         qDebug() << "rtAngle360 :" << rtAngle;
     }
-	update(true);//产生一个绘图事件paintevent对窗口重绘
+    this->update();
+    //update(true);//产生一个绘图事件paintevent对窗口重绘
 }
 
 void Widget::paintEvent(QPaintEvent *event)
