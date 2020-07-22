@@ -12,6 +12,6 @@ Release/
 obj/  
 
 ## QT 文件
-build-*
+/build-*
 
 

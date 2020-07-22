@@ -1,6 +1,8 @@
 # Sprite 精灵类
 
-**精灵(Sprite)** 是一个能通过改变自身的属性：角度，位置，缩放，颜色等，变成可控制动画的 2D 图像。
+## 精灵的创建
+
+**精灵(Sprite)** 是一个能通过改变自身的属性：角度，位置，缩放，颜色等，变成可控制动画的 2D 图像。精灵对象通过图片文件中进行创键
 
 ```c++
 class Sprite{
@@ -20,7 +22,22 @@ class Sprite{
 
 创建一个精灵对象,通过`addChild`来显示
 
+### 纹理图(Texture2D)
+
+纹理图集,可以提前加载图片,在使用的时候在通过精灵创建,可以提高程序的运行效率,如果有许多重复的精灵被创建,也可以使用纹理图集来节省内存空间
+
 **纹理:**按照特定的贴图映射到物体,使精灵看起来更加真实
+
+纹理缓存:主要功能用于加载和管理纹理。一旦纹理加载完成，下次使用时可使用它返回之前加载的纹理，从而减少对GPU和CPU内存的占用。
+
+```cpp
+//创建texture2D,通过纹理缓存添加进去
+auto direct = Director::getInstance();
+//添加纹理图
+auto texture2d = Director::getInstance()->getTextureCache()->addImage("1.png");
+```
+
+精灵通过纹理图来创建,这样可以使重复操作的精灵文件不会占用多余的空间
 
 ```cpp
 //指定纹理创建精灵
@@ -28,44 +45,50 @@ static Sprite* createWithTexture(Texture2D *texture);
 
 //指定纹理裁剪精灵,默认不旋转
 static Sprite* createWithTexture(Texture2D *texture,Rect &rect,bool rotated=false);
-
-//通过精灵帧创建精灵对象
-static Sprite* createWithFrame(SpritehFrame *sf);
-
-//通过帧缓存创建精灵帧对象
-static Sprite* createWithFrameName(string& sf);
 ```
 
-
-
-### 纹理图(Texture2D)
-
-纹理图集,可以提前加载图片,在使用的时候在通过精灵创建,可以提高程序的运行效率,如果有许多重复的精灵被创建,也可以使用纹理图集来节省内存空间
+获取纹理图片,通过`key`来获取
 
 ```cpp
-//添加纹理图
-auto direct = Director::getInstance();
-auto texture2d = direct->getTextureCache()->addImage(string& filename);
+Texture2D *texture = Director::getInstance()->getTextureCache()->getTextureForKey(textureKeyName);
 ```
 
-例:
+如果这个纹理图片不在使用了,就应该清理以节省内存
 
 ```cpp
-//创建texture
-auto t2d = Director::getInstance()->getTextureCache()->addImage("");
+//自动释放没有使用的纹理
+Director::getInstance()->getTextureCache()->removeUnusedTextures();
+
+//通过键值进行进行移除
+Director::getInstance()->getTextureCache()->removeTextureForKey("res/1.png");
+
+//移除所有纹理
+Director::getInstance()->getTextureCache()->removeAllTextures();
 ```
 
 
 
-### 精灵帧缓存(TextureCache)
+### 精灵帧(SpriteFrame)
 
-`TextureCache`,
+`SpriteFrameCache`类,是一个单例对象
 
-能够从精灵表中创建精灵帧缓存,可以节省内存消耗,缓存文件的格式通常是`plist`文件,
+```cpp
+SpriteFrameCache* cache = SpriteFrameCache::getInstance();
+```
+
+销毁这个单例对象
+
+```cpp
+SpriteFrameCache::destroyInstance();
+```
+
+
+
+能够从精灵表中创建精灵帧缓存,可以节省内存消耗,缓存文件的格式通常是`plist`文件,这些文件由一张大图来表示,然后拆分成多种不同的小图片
 
 ```cpp
 //从.plist 文件中创建精灵帧缓存
-SpriteFrameCatche::getInstance()->addSpriteWithFile(string& filename);
+SpriteFrameCache::getInstance()->addSpriteWithFile(string& filename);
 ```
 
 精灵帧不用的时候就要移除
@@ -84,9 +107,21 @@ void removeSpriteFramesFromFile(string& name);
 void removeSpriteUnusedSpriteFrame(string& plist);
 ```
 
-#### 图集
+精灵通过精灵帧缓存来创建
 
-**图集(Sprite Sheet)** 是通过专门的工具将多张图片合并成一张大图,并通过 plist 等格式的文件索引的资源，使用图集比使用多个独立图像占用的磁盘空间更少，还会有更好的性能。
+```cpp
+//通过精灵帧创建精灵对象
+static Sprite* createWithFrame(SpritehFrame *sf);
+
+//通过帧缓存创建精灵帧对象
+static Sprite* createWithFrameName(string& sf);
+```
+
+
+
+### 图集(Sprite Sheet)
+
+图集是通过专门的工具将多张图片合并成一张大图,并通过 plist 等格式的文件索引的资源，使用图集比使用多个独立图像占用的磁盘空间更少，还会有更好的性能。
 
 将所有图集(.plist文件)加入到精灵帧缓存,缓存了添加到其中的 `SpriteFrame` 对象，提高了精灵的访问速度
 
@@ -105,29 +140,13 @@ spritecache->addSpriteFramesWithFile("sprites.plist");
 + [bigshear](https://www.fancynode.com.cn/bigshear)
 + Sprite Sheet Packer(免费)
 
-##### Sprite Sheet Packer
+**Sprite Sheet Packer**
 
-一个在线的编辑工具,可以直接在网站上编辑,使用简单,免费
+一个在线的编辑工具,可以直接在网站上编辑,使用简单,免费[网站地址](https://www.codeandweb.com/free-sprite-sheet-packer)
 
-[网站地址](https://www.codeandweb.com/free-sprite-sheet-packer)
+**Texture Packer**图层打包工具,有免费和专业两个版本
 
-##### Texture Packer
 
-图层打包工具,有免费和专业两个版本
-
-## 批量绘制(SpriteBatchNode)
-
-SpriteBatchNode 批处理绘制,可以将相同的精灵文件共享一个图片对象,这样可以节省绘制的调用时间
-
-类似于一个批处理节点:如果它包含子节点，它将在一个单独的OpenGL调用中绘制它们。
-
-```cpp
-class SpriteBatchNode{
-    
-};
-```
-
-## 
 
 ## 精灵的使用
 
@@ -234,26 +253,28 @@ mySprite->setColor(Color3B(255, 255, 255)); // Same as Color3B::WHITE
 mySprite->setOpacity(30);
 ```
 
-# 多边形精灵
+## 多边形精灵
 
 **多边形精灵(Polygon Sprite)** 也是一个精灵，同样是为了展示一个可以被控制的图像，但是和普通精灵的区别是，普通精灵在绘图处理中被分为了两个三角形，多边形精灵则是被分为了一系列三角形。
 
-## 为什么要使用多边形精灵
+### 为什么要使用多边形精灵
 
 **提高性能**!
 
-要深入分析这个是如何提高性能的，会需要很多和像素填充率有关的技术术语。幸好本节是入门性质的文档，能让大家理解多边形精灵比普通精灵性能好就可以了，不用讨论特定宽高矩形绘制时的性能问题。
+多边形功能精灵为什么会提高性能?因为我们创建的精灵中,有的是以填充背景的形式存在的,所以绘制的是整个图片,而有的精灵则是人物,通常是一个完全不规则的形状,有相当一部分是透明的,多边形工具就是将人物图片进行一个形状绑定,这样绘制的时候不会绘制多余的透明背景
 
-## AutoPolygon
+### AutoPolygon工具
 
 **`AutoPolygon`** 是一个工具类，它可以在程序运行时，通过跟踪关键点和三角测量，将一个矩形图像划分成一系列小三角形块。
 
 首先将图像资源传入 `AutoPolygon` 进行处理，然后我们使用它生成的对象进行精灵的创建就能得到多边形精灵。
 
 ```cpp
-// Generate polygon info automatically.
+// 通过多边形工具绑定精灵
 auto pinfo = AutoPolygon::generatePolygon("filename.png");
 
-// Create a sprite with polygon info.
+//通过多边形工具绑定的精灵进行创建
 auto sprite = Sprite::create(pinfo);
+
+this->addChild(sprite);
 ```
