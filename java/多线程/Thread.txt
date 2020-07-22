@@ -1,0 +1,21 @@
+
+Thread类
+	void run(); 线程方法,需重写
+	void start() 启动线程
+	static void sleep(long m) 线程休眠
+	
+	void join() 优先执行方法
+	void join(long m) 占用时间
+		作用:等待调用该方法的线程结束后其他线程才能执行
+		
+	int getpriority()  //获取线程的方法
+	void setPropriority(int pro) //设置线程的方法
+	
+Runnable接口 
+	可以多个继承
+
+	
+//线程死锁
+public synchronized void `Mothed()`
+
+	

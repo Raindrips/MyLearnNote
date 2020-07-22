@@ -1,0 +1,13 @@
+//套接字
+class Socket{
+	/**
+		host:域名 
+		port: 端口号
+	*/
+	(String host,int port)
+	
+	//获取端口号
+	OutputStream getOutputStream();
+	
+	
+}

@@ -1,0 +1,15 @@
+//如果是检查类异常,调用该方法时需要用try语句捕获
+public void `methed` throws Except1 [Except2...]{
+	
+}
+
+//手动抛出异常
+throw new Exception()
+
+自定义异常
+public class `MethouException` extends Exception{
+	`MethouException`(){
+		super(String);
+	}
+}
+
