@@ -33,6 +33,22 @@
 world = new b2World(b2Vec2(0, -10));
 ```
 
+### 物体类型
+
+```}cpp
+/// static: zero mass, zero velocity, may be manually moved
+/// kinematic: zero mass, non-zero velocity set by user, moved by solver
+/// dynamic: positive mass, non-zero velocity determined by forces, moved by solver
+enum b2BodyType
+{
+	b2_staticBody = 0,
+	b2_kinematicBody,
+	b2_dynamicBody
+}
+```
+
+
+
 创建一个运动的物体
 
 ```cpp
@@ -49,11 +65,11 @@ b2Body* body= world->CreateBody(&def);
 然后让这个物体和sprite绑定在一起
 
 ```cpp
- auto s = Sprite::create();
-  s->setTextureRect(Rect(0, 0, 80, 80));
-  s->setPosition(def.position.x*RAD, def.position.y*RAD);
-  this->addChild(s);
-  body->SetUserData(s);
+auto s = Sprite::create();
+s->setTextureRect(Rect(0, 0, 80, 80));
+s->setPosition(def.position.x*RAD, def.position.y*RAD);
+this->addChild(s);
+body->SetUserData(s);
 ```
 
 调用update函数
@@ -61,19 +77,20 @@ b2Body* body= world->CreateBody(&def);
 ```cpp
 void CLASS::update(float dt)
 {
-  world->Step(dt, 8, 3);
-  Sprite *s;
-  for (b2Body *b = world->GetBodyList(); b!=nullptr; b=b->GetNext())
-  {
-	if (b->GetType()== b2BodyType::b2_dynamicBody)
-	{
-	  if (b->GetUserData())
-	  {
-		s=(Sprite*)b->GetUserData();
-		s->setPosition(b->GetPosition().x*RAD, b->GetPosition().y*RAD);
-	  }
-	}
-  }
+    world->Step(dt, 8, 3);
+    Sprite *s;
+    for (b2Body *b = world->GetBodyList(); b!=nullptr; b=b->GetNext())
+    {
+        if (b->GetType()== b2BodyType::b2_dynamicBody)
+        {
+            if (b->GetUserData())
+            {
+                s=(Sprite*)b->GetUserData();
+                s->setPosition(b->GetPosition().x*RAD, b->GetPosition().y*RAD);
+            }
+        }
+    }
+}
 ```
 
 ## 创建一个Box2d世界
@@ -101,7 +118,7 @@ word->CreateBody(&def);
 
 之后为了能够显示出创建的这个物体的运动情况，在update中，可以通过一个循环来便利整个物理世界的物体列表，找到我们定义的这个物体就可以输出他在物理世界中自由落体的坐标变化
 
-```
+```cpp
 void HelloWorld::update(float dt)
 {
 	word->Step(dt, 8, 3);
@@ -117,7 +134,7 @@ void HelloWorld::update(float dt)
 
 将创建的那个物体和sprite绑定在一起。
 
-```
+```cpp
 b2Body *b =  word->CreateBody(&def);
 auto sprite = Sprite::create();
 addChild(sprite);
@@ -161,3 +178,19 @@ void HelloWorld::update(float dt)
 ```
 
 所以在update函数里面就要检查body对象是否绑定了图形，然后获取到他所绑定的图形，进行重新设置当前的图形坐标。
+
+### 设置夹具
+
+```cpp
+b2FixtureDef fixDef;
+//密度
+fixDef.density = 1;
+//摩擦力
+fixDef.friction = 0.3;
+//形状
+b2PolygonShape polygon = {};
+polygon.SetAsBox(0.5, 0.5);
+fixDef.shape = &polygon;
+body->CreateFixture(&fixDef);
+```
+
