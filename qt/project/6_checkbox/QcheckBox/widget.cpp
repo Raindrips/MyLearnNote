@@ -19,10 +19,10 @@ Widget::Widget(QWidget *parent) :
     //设置窗口大小
     setMinimumSize(500,400);
     setMaximumSize(500,400);
-    setFixedSize(500,300);
-    useCheck();
-    useComboBox();
-    useLine();
+    //setFixedSize(500,300);
+    //useCheck();
+    //useComboBox();
+    //useLine();
     useDial();
     useSpinBox();
     useLcd();
@@ -215,7 +215,7 @@ void Widget::useLcd(){
 
      ProgressBar->setFormat(QString("下载安装进度条"));
      //设置反方向
-   //  ProgressBar->setInvertedAppearance(true);
+     ProgressBar->setInvertedAppearance(true);
 
      ScrollBar=new QScrollBar(this);
      ScrollBar->setGeometry(10,280,40,300);

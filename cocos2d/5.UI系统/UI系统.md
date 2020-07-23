@@ -29,9 +29,43 @@ labelttf->setPosition(20,20);	//设置窗口大小
 auto Label=Label::createTTF(); 		//
 ```
 
-### LabelTTF
+Label类常用的函数
 
-## TextFeidTTF
+```cpp
+class Label{
+    //LabelTTF 文字类
+    static Label* createWithTTF(String& text,string& font,int size);
+    
+    //创建一个BMfont 文字对象
+    static Label* createWithBMFont("bitmapRed.fnt", "Your Text");
+    // 阴影效果
+    void enableShadow();
+    //描边效果 颜色 粗细
+    enableOutline(Color4B& color,int line));
+    //发光效果
+    void enableGlow();
+}
+```
+
+配置文字对象,使用`LabelConfig`来进行配置.
+
+```cpp
+// create a TTFConfig files for labels to share
+TTFConfig labelConfig;
+labelConfig.fontFilePath = "myFont.ttf";
+labelConfig.fontSize = 16;
+labelConfig.glyphs = GlyphCollection::DYNAMIC;
+labelConfig.outlineSize = 0;
+labelConfig.customGlyphs = nullptr;
+labelConfig.distanceFieldEnabled = false;
+
+// 通过LabelConfig来创建Label
+auto myLabel = Label::createWithTTF(labelConfig, "My Label Text");
+```
+
+### 
+
+### TextFeidTTF
 
 本文输入框,可以输入文字
 
@@ -50,8 +84,6 @@ class TextFeidTTF{
 
 
 
-
-
 ### LabelTTF
 
 ```cpp
@@ -63,41 +95,6 @@ class LabelTTF{
 ### BMFont
 
 位图字体文字,通过位图创建字体
-
-### Label
-
-```cpp
-
-class Label{
-    //LabelTTF 文字类
-    static Label* createWithTTF(String& text,string& font,int size);
-    
-    //创建一个BMfont 文字对象
-    static Label* createWithBMFont("bitmapRed.fnt", "Your Text");
-    // 阴影效果
-    void enableShadow();
-    //描边效果 颜色 粗细
-    enableOutline(Color4B& color,int line));
-    //发光效果
-    void enableGlow();
-}
-```
-
-配置文字对象
-
-```cpp
-// create a TTFConfig files for labels to share
-TTFConfig labelConfig;
-labelConfig.fontFilePath = "myFont.ttf";
-labelConfig.fontSize = 16;
-labelConfig.glyphs = GlyphCollection::DYNAMIC;
-labelConfig.outlineSize = 0;
-labelConfig.customGlyphs = nullptr;
-labelConfig.distanceFieldEnabled = false;
-
-// create a TTF Label from the TTFConfig file.
-auto myLabel = Label::createWithTTF(labelConfig, "My Label Text");
-```
 
 ### 文本框(TextFaield)
 
@@ -276,13 +273,9 @@ this->addChild(slider);
 schedule(schedule_selector(&类名::函数名));
 ```
 
-## log
-
-输出日志
-
-使用  `CCLOG` 宏来输出
-
 ## MessageBox
+
+消息显示框
 
 ```cpp
 MessageBox("消息内容","消息框");
