@@ -215,7 +215,7 @@ void Widget::useLcd(){
 
      ProgressBar->setFormat(QString("下载安装进度条"));
      //设置反方向
-     ProgressBar->setInvertedAppearance(true);
+   //  ProgressBar->setInvertedAppearance(true);
 
      ScrollBar=new QScrollBar(this);
      ScrollBar->setGeometry(10,280,40,300);
