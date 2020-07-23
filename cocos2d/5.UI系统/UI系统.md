@@ -16,7 +16,7 @@
 2. ~~LabelTTF~~  系统字体文字(已弃用)
 3. ~~BMFont~~ 位图字体文字(已弃用)
 
-## el
+## label
 
 label 是文字属性标签,使用createTTF 来创建
 
