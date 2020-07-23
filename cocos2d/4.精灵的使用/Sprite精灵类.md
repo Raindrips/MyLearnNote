@@ -24,11 +24,11 @@ class Sprite{
 
 ### 纹理图(Texture2D)
 
-纹理图集,可以提前加载图片,在使用的时候在通过精灵创建,可以提高程序的运行效率,如果有许多重复的精灵被创建,也可以使用纹理图集来节省内存空间
+**纹理图集**,可以提前加载图片,在使用的时候在通过精灵创建,可以提高程序的运行效率,如果有许多重复的精灵被创建,也可以使用纹理图集来节省内存空间
 
 **纹理:**按照特定的贴图映射到物体,使精灵看起来更加真实
 
-纹理缓存:主要功能用于加载和管理纹理。一旦纹理加载完成，下次使用时可使用它返回之前加载的纹理，从而减少对GPU和CPU内存的占用。
+**纹理缓存**:主要功能用于加载和管理纹理。一旦纹理加载完成，下次使用时可使用它返回之前加载的纹理，从而减少对GPU和CPU内存的占用。
 
 ```cpp
 //创建texture2D,通过纹理缓存添加进去
@@ -66,11 +66,20 @@ Director::getInstance()->getTextureCache()->removeTextureForKey("res/1.png");
 Director::getInstance()->getTextureCache()->removeAllTextures();
 ```
 
+### 批量绘制纹理精灵
+
+``SpriteBatchNode``类,创建的精灵会自动添加到纹理图中,使多个相同图片的精灵共享一个纹理图片,这样就可以节省内存空间了并且可以不用纹理缓存来进行管理
+
+```cpp
+//通过批量绘制来创建精灵
+auto sprite=SpriteBatchNode::create("1.png");
+```
+
 
 
 ### 精灵帧(SpriteFrame)
 
-`SpriteFrameCache`类,是一个单例对象
+`SpriteFrameCache`类,是一个单例对象,可以主要用于将一张合成的图片进行拆分读取
 
 ```cpp
 SpriteFrameCache* cache = SpriteFrameCache::getInstance();
@@ -278,3 +287,4 @@ auto sprite = Sprite::create(pinfo);
 
 this->addChild(sprite);
 ```
+
