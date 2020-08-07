@@ -67,7 +67,12 @@ class TMXLayer{
     //通过瓦片坐标获取像素坐标,瓦片坐标y轴是相反的,在工具中可以进行修改
     Vec2 getPositionAt(Vec2& tileCorrdinate);
     //通过瓦片坐标获取GID值
-    int getProPertiesForGID(Vec2& tileCorrdinate)
+    int getProPertiesForGID(Vec2& tileCorrdinate);
+    
+    //通过GID获取对象的值
+    Value getPropertiesForGID(int GID);
+    
+    Size& getMapSize();
 }
 ```
 
@@ -124,8 +129,7 @@ class TMXObjectGroup{
     
     //获取所有对象
     ValueMap getProperties();
-    
-    
+ 
 }
 ```
 
@@ -133,17 +137,28 @@ class TMXObjectGroup{
 
 ## 常见操作
 
-根据地图对象操作地图
+txm地图操作并不复杂,只要掌握基本用法,就能够实现地图和代码的交互操作了
+
+### 获取图层中的精灵对象
 
 ```cpp
+//通过层名获取图层
+auto layer=map->getLayer("trees");
+//获取指定坐标位置获取精灵节点
+auto sprite = layer->getTileAt(Vec2(0, 11));
+```
+
+### 根据地图对象操作地图属性
+
+```cpp
+//通过对象名获取对象
 auto color=objectGroup->getObject("color");
+//修改对象的Value值
 auto X=color["x"].asInt()/32;
 auto Y=color["y"].asInt()/32;
 ```
 
-
-
-### 实现鼠标拖动效果
+###  实现鼠标拖动地图
 
 ```cpp
 auto diff = touch->getDelta();
@@ -175,7 +190,7 @@ this->removeChildByTag(123, true);
 
 ## 地图编辑器
 
-[tilemap](http://mapeditor.org)编辑器,是一个免费开源的软件,里面提供了地图编辑功能
+[tilemap](http://mapeditor.org)编辑器,是一个免费开源的软件,里面提供了地图编辑功能,通过该软件的操作可以提高开发效率
 
 ### 新建地图
 
