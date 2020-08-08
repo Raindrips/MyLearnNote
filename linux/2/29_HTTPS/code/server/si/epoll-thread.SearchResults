@@ -1,0 +1,4 @@
+---- accept Matches (3 in 1 files) ----
+G_net_update.c (f:\linux-lec\ДњТы\thread_pool_server\epoll-threadpool-master\server):			if ((connect_fd = accept(listen_fd, (struct sockaddr *)&clientaddr, &clilen)) < 0)
+G_net_update.c (f:\linux-lec\ДњТы\thread_pool_server\epoll-threadpool-master\server):					snprintf(log_str_buf, LOG_STR_BUF_LEN, "accept error %d,%s.\n", errno, strerror(errno));
+G_net_update.c (f:\linux-lec\ДњТы\thread_pool_server\epoll-threadpool-master\server):			snprintf(log_str_buf, LOG_STR_BUF_LEN, "current accept number achieve to maximum(%d) .\n", MAX_EVENTS);
