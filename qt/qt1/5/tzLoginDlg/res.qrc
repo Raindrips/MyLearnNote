@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/png/anniu1.png</file>
+        <file>image/png/anniu2.png</file>
+        <file>image/png/biyan1.png</file>
+        <file>image/png/biyan2.png</file>
+        <file>image/png/bukejian.png</file>
+        <file>image/png/check11.png</file>
+        <file>image/png/check22.png</file>
+        <file>image/png/dlbg.png</file>
+        <file>image/png/kejian.png</file>
+        <file>image/png/logo.png</file>
+        <file>image/png/qq_default.png</file>
+        <file>image/png/qq_hover.png</file>
+        <file>image/png/sabjiax_press.png</file>
+        <file>image/png/sanjiaox_default.png</file>
+        <file>image/png/sanjiaox_hover.png</file>
+        <file>image/png/shut.png</file>
+        <file>image/png/wx_default.png</file>
+        <file>image/png/wx_hover.png</file>
+        <file>image/png/yanz1.png</file>
+        <file>image/png/yanz2.png</file>
+        <file>image/png/zxh.png</file>
+    </qresource>
+</RCC>
