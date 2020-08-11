@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/png/back_hover.png</file>
+        <file>image/png/back_normal.png</file>
+        <file>image/png/next_hover.png</file>
+        <file>image/png/next_normal.png</file>
+        <file>image/png/open_hover.png</file>
+        <file>image/png/open_normal.png</file>
+        <file>image/png/pause_hover.png</file>
+        <file>image/png/pause_normal.png</file>
+        <file>image/png/play_hover.png</file>
+        <file>image/png/play_normal.png</file>
+        <file>image/png/stop_hover.png</file>
+        <file>image/png/stop_normal.png</file>
+    </qresource>
+</RCC>

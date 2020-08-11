@@ -1,0 +1,28 @@
+static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
+
+static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
+static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
+static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
+
+--------------------- 
+第一个是设计分辨率大小，即窗口的大小，修改后改变窗口大小。
+
+下面三个为游戏显示分辨率，修改了窗口分辨率后，如果和下面的分辨率不同，要修改其中一个和窗口分辨率相同的值
+
+例如：窗口分辨率修改为（800，500）下面没有对应的分辨率，要把下面三个其中一个的分辨率改为（800，500），否则会出现图片和UI错位的情况
+
+
+
+
+TextureCache::getInstance()  //过时
+Director::getInstance()->getTextureCache() //替换
+
+//菜单按钮
+auto closeItem = MenuItemImage::create(
+	"1.png",
+	"2.png",
+	CC_CALLBACK_1(menuCloseCallback, this));
+	
+//按钮事件
+void menuCloseCallback(Ref* pSender){
+}
