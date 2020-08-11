@@ -310,3 +310,14 @@ wv->setConentSize();
 //设置网页
 wv->loadURI("http://www.baidu.com");
 ```
+
+
+
+## 计时器
+
+### schedule
+
+```cpp
+//每帧执行代码
+schedule(schedule_selector(&类名::函数名));
+```

@@ -1,0 +1,6 @@
+统计文件大小
+
+find ./ -name *.log|xargs du -ch
+
+统计文件夹
+ -sh * | sort -rn
