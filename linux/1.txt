@@ -3,4 +3,4 @@
 find ./ -name *.log|xargs du -ch
 
 统计文件夹
- -sh * | sort -rn
+ sort -sh * | sort -rn
