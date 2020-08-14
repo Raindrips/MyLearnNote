@@ -15,6 +15,7 @@ http.createServer(
         res.writeHead(200,{'content-Type':'text/plain'});
         res.end('Hello World');
     }
+    
 ).listen(3000,'127.0.0.1');
 ```
 
@@ -44,14 +45,20 @@ npm install socket.io
 
 ```js
 //引入socket.io模块并监听3000端口
-var io= reqire('socket.io').listen(3000);
+var io=require('socket.io').listen(3000);
 console.log('Server on port 3000');
 io.sockets.on('connection',function(socket)
 {
     //向客户端发送消息
 	socket.send('Hello');
     //注册message事件
-    socket.on('message',function(data){console.log(data)});
+    socket.on('message',function(data){
+        console.log(data)
+    });
+    //连接事件
+    socket.on('connect',function(){
+        console.log("connect client");
+    })
     //注册callServerEvent事件,便于客户端调用
     socket.emit('callServerEvent',{message:'hello client'});
 });
