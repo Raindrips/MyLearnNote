@@ -1,4 +1,4 @@
-# Libevent开发 
+# Libevent开发
 
 * 依赖库：基于Linux中libevent库进行的事件响应
 * 基本介绍：
