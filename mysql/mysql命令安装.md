@@ -46,7 +46,7 @@ net stop mysql
 mysqld -console -skip-grant-tables
 
 ## 然后启动一个新的cmd界面,原来的不要关
-mysql -uroot -p 
+mysql -uroot -p
 ```
 
 ## 操作步骤
