@@ -2,3 +2,8 @@
 
 rsync -av --exclude  <要忽略的目录1> --exlclude <要忽略的目录1>  <要拷贝的目录>  <拷贝到的目录位置>
 
+统计文件大小
+find ./ -name *.log|xargs du -ch
+
+统计文件夹
+ -sh * | sort -rn

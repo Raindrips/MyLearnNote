@@ -1,4 +1,4 @@
-## Http基础
+# http协议 找文本传输协议
 
 全称:Hyper Text  Transfer  Protocol
 
@@ -110,3 +110,8 @@ URL即统一资源定位符(Uniform Resource Locator)，用来唯一地标识万
 
 HTTP代理又称Web缓存或代理服务器(Proxy Server),是一种网络实体，能代表浏览器发出HTTP请求，并将最近的一些请求和响应暂存在本地磁盘中，当请求的Web页面先前暂存过，则直接将暂存的页面发给客户端(浏览器)，无须再次访问Internet。
 
+### 使用HTTP代理的Web访问过程
+
+1. 浏览器向http发出请求
+1. Http代理查找缓存页面
+   1. 如果找到用缓存页面响应请求
