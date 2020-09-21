@@ -33,7 +33,7 @@
 | Fit Height        | 适配高度（设计分辨率的高度自动撑满屏幕高度）         |
 | Fit Width         | 适配宽度（设计分辨率的宽度自动撑满屏幕宽度）         |
 
-类型`cc.Canvas` 继承``Component``
+类型`cc.Canvas` 继承``Component``
 
 ```js
 
@@ -42,3 +42,16 @@
 ### scrollView
 
  
+
+### cc.Button
+
+按钮组件,点击然后相应一个事件的UI控件,按钮有多种动画过渡效果
+
+```js
+
+```
+
+cc.Label
+
+文字标签,可以在场景中显示文字
+

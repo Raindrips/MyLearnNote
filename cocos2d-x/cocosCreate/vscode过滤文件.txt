@@ -1,6 +1,9 @@
 进入设置
 搜索 Exclude
 
+
+
+```
 {
 “search.exclude”: {
 “/node_modules": true,
@@ -19,3 +22,5 @@
 "local/": true,
 "temp/": true
 },
+```
+
