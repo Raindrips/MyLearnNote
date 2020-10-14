@@ -11,13 +11,16 @@ mysqld -install
 然后执行初始化命令
 
 ```sh
+#初始化数据库
 mysqld --initialize --console
+
+mysqld --initialize-insecure --console
 ```
 
-初始化数据库
+
 
 ```sh
-mysqld --initialize-insecure --console
+
 ```
 
 
