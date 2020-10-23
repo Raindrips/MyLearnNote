@@ -1,0 +1,83 @@
+# C#面向对象编程
+
+## 封装
+
+通过`class`关键字声明类
+
+```c#
+class ABC{
+    public int a;   
+    public void fn();
+    
+    private int b;
+    
+    protected void  init();
+}
+```
+
+| 修饰符    | 功能         |
+| --------- | ------------ |
+| public    | 公有         |
+| protected | 保护         |
+| private   | 私有         |
+| internal  | 本命名空间类 |
+
+## 继承
+
+```c#
+class Base{
+ 	protected int a;
+    protected void fn(){
+        
+    }
+    
+    public virtual void bit(){
+        
+    }
+}
+```
+
+派生类
+
+```cpp
+class This: Base{
+    Tarr(){
+        //调用基类对象 
+        a=10;
+        fn();
+    }
+}
+```
+
+| 基类            | 派生类                         |
+| --------------- | ------------------------------ |
+| 直接声明        | 通过 new 隐藏,使用base访问父类 |
+| 虚方法`virtial` | `override`重写                 |
+
+`sealed`关键字,阻止类进行继承
+
+## 多态
+
+## interface接口
+
+接口可以被多个类继承
+
+```C#
+interface iSuper{
+ 	void run(string str)   
+}	
+
+class 
+```
+
+### abstract抽象类
+
+抽象类只能继承一个,不能多继承
+
+```cpp
+class abstract{
+    void fun();
+}
+```
+
+## 
