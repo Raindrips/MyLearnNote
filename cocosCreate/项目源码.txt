@@ -1,0 +1,19 @@
+
+# 贪吃蛇大作战  版本 4年前
+https://github.com/wijat/slitherIO
+
+# 坦克大战demo
+https://github.com/m249212419/tankwar.git4.5K
+#有服务器的版本
+服务端 https://github.com/m249212419/tankserver.git1.6K
+
+# 橡皮怪勇闯地下室
+https://github.com/shenghy/Cocos_Basement
+教程
+https://forum.cocos.org/t/topic/40506
+
+# 熊猫酷跑
+https://github.com/maikx2333/PandaRunDemo
+
+https://github.com/shenghy/Cocos_Basement
+

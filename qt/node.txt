@@ -1,0 +1,3 @@
+http://download.qt.io/archive/
+
+http://download.qt.io/official_releases/qt/5.12/5.12.1/
