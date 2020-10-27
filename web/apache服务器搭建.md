@@ -14,7 +14,8 @@ ServerRoot "${SRVROOT}"
 
 启动http服务
 ```sh
-http 
+# 启动命令
+httpd.exe
 
 # 开机自动运行
 httpd.exe -k install
