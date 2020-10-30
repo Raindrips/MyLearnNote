@@ -40,3 +40,24 @@ GUI的原点参照是游戏视窗的左上角。（单位：像素)
 
 
 
+| Delegates 委托 | 说明                                      |
+| :------------- | :---------------------------------------- |
+| WindowFunction | 在窗口内回调绘制GUI(和GUI.Window一起使用) |
+
+```c#
+public Texture aTexture;	//GUI引用
+void OnGUI() {
+
+    if (!aTexture) {
+        Debug.LogError("Assign a Texture in the inspector.");
+        return;
+    }
+    GUI.DrawTexture(new Rect(10, 10, 60, 60), aTexture, ScaleMode.ScaleToFit, true, 10.0F);
+
+    if (GUI.Button(new Rect(10, 10, 50, 50), btnTexture))
+        Debug.Log("Clicked the button with an image");
+    if (GUI.Button(new Rect(10, 70, 50, 30), "Click"))
+        Debug.Log("Clicked the button with text");
+}
+```
+
