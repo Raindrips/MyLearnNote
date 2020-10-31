@@ -1,0 +1,57 @@
+查看密码
+use mysql
+SELECT host,user,password FROM user;
+
+修改密码
+UPDATE userd SET password = password('passwd') WHERE user='user';
+
+
+创建数据库
+CREATE DATABASE <db_name>
+
+切换数据库
+use <db_name>
+
+
+数据库类型
+字符型
+	CHAR				单字符
+	CHAR[N]			N个长度的字符
+	VARCHAR[N]	N个可变长度的字符 0~255
+	TINYTEXT		类似VARCHAR[N]
+	MEDIUMTEXT	字符文本0~65535
+	LONGTEXT		2^32-1个字符
+	
+值类型
+TINYINT				整型	8位
+SMALLINT						16位	
+MEDIUMINT						24位
+INT									32位
+BIGNT								64位
+FLOAT(P)			浮点型 P精确到P位数字的浮点数			
+DOUBLE(D,N)		双精度	D位数字N位小数	
+NUMERIC(P,S)					精确度高
+
+DECIMAL(P,S)					MUMERIC同义
+
+时间类
+DATE
+TIME
+YEAR
+
+创建表
+CREATE TABLE <tb_name>
+(
+<column> <type> [NULL|NOT NULL] [AUTO_INCREMENT] [PRIMARY KEY]
+[,...]
+)
+
+删除表
+DROP TABLE <tb_name>
+
+
+从表中插入
+INSERT INTO <tb_name> VALUES("");
+
+查询表
+SELECT <column>... FROM <tb_name>;

@@ -1,0 +1,45 @@
+函数
+
+```c#
+//物体辨认
+CompareTag()
+
+//发送信息
+Component.sendMessage()
+
+//
+SendMessageUpwards()
+
+//
+BroadcastMessage()
+
+//
+Invoke(string methedName,float time)
+
+//
+InvokeRepeating();
+
+//
+IsInvoking()
+
+//
+CanceInvoke()
+
+//协同程序,不等于线程
+StartCoroutine()
+
+//
+StopCoroutine()
+
+//
+StartAllCoroutine
+
+//实现物体不断围绕物体旋转
+transform.RotateAround(targe.transform.position, Vector3.up,90f*Time.deltaTime);
+
+//碰撞事件
+void OnTriggerEnter(Collider other){}
+void OnTriggerStay(Collider other){}
+void OnTriggerExit(Collider other){}
+```
+
