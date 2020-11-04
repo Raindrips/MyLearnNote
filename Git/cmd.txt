@@ -1,0 +1,64 @@
+git config --global user.name "用户名"
+git config --global user.email "邮箱"
+
+#将网站上的git分支拷贝到本地
+git clone (Url)
+
+#查看当前路径下创建分支 
+git status 
+
+#添加文件
+git add (file)
+
+#添加注释
+git commit -m "Initial commit"
+#更正最近一次新的提交
+git commit --amend
+
+#将文件传入服务器
+git push -u origin master
+
+
+
+#回滚过去
+git reset
+
+#添加一个文件
+git -a <file>
+	reset 软回复
+	rm <file> #删除 文件
+
+#下载
+gitdown
+
+git remote add origin git@github.com
+git pull origin master --allow-unrelated-histories
+
+git push -u origin master
+
+#比较文件不同
+git diff
+	--git [file] #查询文件id
+	id1 id2 #比较id中的文件
+	--cached id1 #与缓冲区比较
+	
+#查看日志
+git log
+
+
+#查看指向分支
+log --decrate
+
+#创建分支
+git bransh [bransh_name]
+
+#切换分支
+git checkout [bransh]
+
+#合并分支
+git merge [bransh_name]
+
+#删除分支
+git bransh -d | --delete [bransh_name]
+
+

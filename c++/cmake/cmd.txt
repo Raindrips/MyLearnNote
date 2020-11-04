@@ -1,0 +1,502 @@
+念师首页
+作者个人页面
+CMake基础教程
+ 2018-12-01T15:06:10     741     0     0
+本文中，我们将会从零开始详细介绍CMake的使用。
+引言
+在本文中，我们将会一步步介绍CMake的使用，从而覆盖通用构建系统的基本功能。 
+本文使用的源码可以在如下地址下载：https://gitlab.kitware.com/cmake/cmake/tree/master/Tests/Tutorial。
+
+起点（第一步）
+第一个最基本的项目是从源代码构建为一个可执行文件。 
+对于这个简单的项目，仅需要三行CMAKELIST.TXT文件。 
+这将是我们的本文的起点。 
+CMAKLISTS.TXT文件如下：
+
+cmake_minimum_required (VERSION 2.6)
+project (Tutorial)
+add_executable(Tutorial tutorial.cpp)
+下面，我们编辑一个tutorial.cpp源码如下：
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+int main (int argc, char *argv[])
+{
+    if (argc &lt; 2)
+    {
+        fprintf(stdout,"Usage: %s number\n",argv[0]);
+        return 1;
+    }
+    double inputValue = atof(argv[1]);
+    double outputValue = sqrt(inputValue);
+    fprintf(stdout,"The square root of %g is %g\n", inputValue, outputValue);
+    return 0;
+}
+该程序的作用是接收一个数字，并对该数字求开方值。 
+现在，我们可以执行如下命令进行编译：
+
+cmake .
+make
+执行上述命令后，可以产生编译后的可执行文件Tutorial。 
+title
+
+添加版本号并配置头文件 
+我们将添加的第一个特性是为可执行文件和项目提供版本号。 
+当然，我们可以直接源代码中进行此操作，但是在CMakeLists.txt文件中修改可以提供更多的灵活性。
+
+接下来，我们会将CMakeLists.txt文件修改如下：
+
+cmake_minimum_required (VERSION 2.6)
+project (Tutorial)
+# 设置版本号
+set (Tutorial_VERSION_MAJOR 1)
+set (Tutorial_VERSION_MINOR 0)
+# 配置一个头文件用于传递一些CMake中的配置到源代码中
+configure_file (
+  "${PROJECT_SOURCE_DIR}/TutorialConfig.h.in"
+  "${PROJECT_BINARY_DIR}/TutorialConfig.h"
+  )
+# 添加一个路径使得我们可以找到TutorialConfig.h文件
+include_directories("${PROJECT_BINARY_DIR}")
+add_executable(Tutorial tutorial.cpp)
+接下来，我们需要创建一个TutorialConfig.h.in文件：
+
+#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
+#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@
+当CMake配置这个头文件时，@Tutorial_VERSION_MAJOR@和@Tutorial_VERSION_MINOR@的值将被CMakeLists.txt文件中的值替换。 
+接下来，我们修改tutorial.cpp以包括配置的头文件并利用版本号。修改代码如下：
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include "TutorialConfig.h"
+int main (int argc, char *argv[])
+{
+    if (argc &lt; 2)
+    {
+        fprintf(stdout,"%s Version %d.%d\n",
+                argv[0],
+                Tutorial_VERSION_MAJOR,
+                Tutorial_VERSION_MINOR);
+        fprintf(stdout,"Usage: %s number\n",argv[0]);
+        return 1;
+    }
+    double inputValue = atof(argv[1]);
+    double outputValue = sqrt(inputValue);
+    fprintf(stdout,"The square root of %g is %g\n",
+        inputValue, outputValue);
+    return 0;
+}
+我们主要修改了两部分：
+
+引入TutorialConfig.h头文件。
+在打印信息中打印版本号Tutorial_VERSION_MAJOR和Tutorial_VERSION_MINOR。
+现在，我们可以编译并运行试试：
+
+cmake .
+make
+./Tutorial
+title
+
+添加依赖库（第二步）
+现在我们将为我们的项目增加一个库。 
+这个库将包含我们自己的计算数字平方根的实现。然后，可执行文件可以使用这个库来代替编译器提供的标准平方根函数。 
+对于本教程，我们将把库放入名为MathFunctions的子目录中。 
+在该目录下的CMakeLists.txt文件中只有如下一行：
+
+add_library(MathFunctions mysqrt.cpp)
+源文件mysqrt.cpp中，我们定义了有一个名为mysqrt的函数，它提供了与编译器自带的sqrt函数类似的功能:
+
+#include "MathFunctions.h"
+#include <stdio.h>
+double mysqrt(double x)
+{
+  if (x &lt;= 0) {
+    return 0;
+  }
+  double result;
+  double delta;
+  result = x;
+  int i;
+  for (i = 0; i &lt; 10; ++i) {
+    if (result &lt;= 0) {
+      result = 0.1;
+    }
+    delta = x - (result * result);
+    result = result + 0.5 * delta / result;
+    fprintf(stdout, "Computing sqrt of %g to be %g\n", x, result);
+  }
+  return result;
+}
+Ps: MathFunctions.h文件如下：
+
+double mysqrt(double x);
+为了利用新库，我们在外层的CMakeLists.txt文件中添加add_subdirectory调用，以便可以找到我们新构建的库。 
+我们还添加了另一个包含目录，以便为函数原型可以找到MathFunctions/MathFunctions.h头文件。 
+最后一个更改是将新库添加到可执行文件中。 
+修改后的外层的CMakeLists.txt文件新增内容如下：
+
+include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
+add_subdirectory (MathFunctions)
+# add the executable
+add_executable (Tutorial tutorial.cpp)
+target_link_libraries (Tutorial MathFunctions)
+此时，我们可以修改tutorial.cpp源码如下来调用我们自己定义的mysqrt函数了。
+
+#include "TutorialConfig.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "MathFunctions.h"
+int main(int argc, char* argv[])
+{
+  if (argc &lt; 2) {
+    fprintf(stdout, "%s Version %d.%d\n", argv[0], Tutorial_VERSION_MAJOR,
+            Tutorial_VERSION_MINOR);
+    fprintf(stdout, "Usage: %s number\n", argv[0]);
+    return 1;
+  }
+  double inputValue = atof(argv[1]);
+  double outputValue = 0;
+  if (inputValue >= 0) {
+    outputValue = mysqrt(inputValue);
+  }
+  fprintf(stdout, "The square root of %g is %g\n", inputValue, outputValue);
+  return 0;
+}
+接下来，我们可以进行编译并运行，得到的结果如下： 
+title
+
+现在，我们考虑一下如何使得MathFunctions为一个可选库。 
+PS：当你的项目变为一个大型项目时，你可能会希望对某些第三方库进行配置可选。 
+为了达到这个目的，我们现在需要向外层的CMakeLists.txt文件中添加一个选项：
+
+option (USE_MYMATH "Use tutorial provided math implementation" ON) 
+这个选项会显示在CMake的GUI，并且其默认值为ON。当用户选择了之后，这个值会被保存在CACHE中，这样就不需要每次CMAKE都进行更改了。
+
+下面 我们需要根据USE_MYMATH的值判断构建和链接MathFunctions库。 
+为了达到这个目的，我们可以改变外层的CMakeLists文件如下：
+
+if (USE_MYMATH)
+  include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
+  add_subdirectory (MathFunctions)
+  set (EXTRA_LIBS ${EXTRA_LIBS} MathFunctions)
+endif (USE_MYMATH)
+add_executable (Tutorial tutorial.cpp)
+target_link_libraries (Tutorial  ${EXTRA_LIBS})
+在这里，我们使用了USE_MYMATH来决定MathFunctions是否会被编译和使用。 
+注意这里使用变量EXTRA_LIBS来收集稍后链接到可执行文件中的任何可选库。。这是保持一个大的项目看起来比较简洁的一个方法。
+
+最后，我们在源代码中进行如下修改即可：
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include "TutorialConfig.h"
+#ifdef USE_MYMATH
+#include "MathFunctions.h"
+#endif
+int main (int argc, char *argv[])
+{
+  if (argc &lt; 2)
+    {
+    fprintf(stdout,"%s Version %d.%d\n", argv[0],
+            Tutorial_VERSION_MAJOR,
+            Tutorial_VERSION_MINOR);
+    fprintf(stdout,"Usage: %s number\n",argv[0]);
+    return 1;
+    }
+  double inputValue = atof(argv[1]);
+#ifdef USE_MYMATH
+  double outputValue = mysqrt(inputValue);
+#else
+  double outputValue = sqrt(inputValue);
+#endif
+  fprintf(stdout,"The square root of %g is %g\n",
+          inputValue, outputValue);
+  return 0;
+}
+在源代码中，我们分别根据USE_MYMATH来决定使用引用对应的头文件和执行函数。 
+Ps：源代码中USE_MYMATH这个宏是由CMAKE通过配置文件TutorialConfig.h.in来提供给的。
+
+#cmakedefine USE_MYMATH
+下面，我们来尝试一下吧： 
+title 
+目前，我们看到的版本是使用了自定义函数的编译结果。 
+现在，我们想移除这个自定义函数，而直接使用标准函数。 
+此时，我们只需要用cmake gui来修改USE_MYMATH的值为off即可。
+
+ccmake .
+title 
+修改完成后保存并重新构建即可。
+
+cmake .
+make
+./Tutorial 100
+title
+
+安装与测试
+接下来，我们将会为我们的项目添加一些安装规则和测试支持。 
+安装规则相对简单，对于MathFunctions库我们安装库和头文件只需要在MathFunctions目录下的CMakeLists.txt文件中添加如下的语句：
+
+install (TARGETS MathFunctions DESTINATION bin)
+install (FILES MathFunctions.h DESTINATION include)
+对于整个应用而言，我们只需要在外层CMakeLists.txt文件中如此配置即可安装可执行程序和配置了的头文件：
+
+install (TARGETS Tutorial DESTINATION bin)
+install (FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h"        
+         DESTINATION include)
+安装规则到此为止了。 
+此时，我们可以执行构建后并通过make install来安装该程序了。 
+CMake变量CMAKE_INSTALL_PREFIX用于确定安装文件的根目录。 
+示例如下： 
+title
+
+接下来，我们来聊一下如何在CMakeLists.txt文件中添加测试。 
+首先，在外层的CMakeLists.txt文件的末尾，我们可以添加一些基本测试来验证应用程序是否正常工作。
+
+include(CTest)
+# does the application run
+add_test (TutorialRuns Tutorial 25)
+# does it sqrt of 25
+add_test (TutorialComp25 Tutorial 25)
+set_tests_properties (TutorialComp25 PROPERTIES PASS_REGULAR_EXPRESSION "25 is 5")
+# does it handle negative numbers
+add_test (TutorialNegative Tutorial -25)
+set_tests_properties (TutorialNegative PROPERTIES PASS_REGULAR_EXPRESSION "-25 is 0")
+# does it handle small numbers
+add_test (TutorialSmall Tutorial 0.0001)
+set_tests_properties (TutorialSmall PROPERTIES PASS_REGULAR_EXPRESSION "0.0001 is 0.01")
+# does the usage message work?
+add_test (TutorialUsage Tutorial)
+set_tests_properties (TutorialUsage PROPERTIES PASS_REGULAR_EXPRESSION "Usage:.*number")
+构建完成后，我们可以运行ctest命令行工具来运行测试。 
+第一个测试只是验证应用程序是否运行，没有segfault或崩溃，并且返回值为零。这是ctest测试中的一种最基本的形式。 
+接下来的几个测试都使用PASS_REGULAR_EXPRESSION测试属性来验证测试的输出是否包含某些字符串。在这种情况下，验证所计算的平方根是否正确。以及当输入参数的数量不符合预期时，是否能够正常打印使用帮助信息。 
+title 
+如果要添加大量测试来测试不同的输入值，可以考虑创建如下所示的宏：
+
+macro (do_test arg result)
+  add_test (TutorialComp${arg} Tutorial ${arg})
+  set_tests_properties (TutorialComp${arg}
+    PROPERTIES PASS_REGULAR_EXPRESSION ${result})
+endmacro (do_test)
+# do a bunch of result based tests
+do_test (25 "25 is 5")
+do_test (-25 "-25 is 0")
+对于do_test的每次调用，将根据传递的参数向项目添加另一个测试用例，该测试用例分别包括了测试用例名称、输入和期望结果三部分。
+
+增加系统检查（第四步）
+接下来，让我们考虑向项目中添加一些可能依赖于目标运行平台环境的代码。 
+对于这个示例，我们将添加一些代码，这些代码取决于目标平台是否具有log和exp函数。如果运行平台支持log函数，那么我们将使用它来计算mysqrt函数中的平方根。
+
+我们首先使用CheckFunctionExists.cmake来测试这些函数的是否存在，在外层的CMakeLists.txt文件中，增加如下内容：
+
+include (CheckFunctionExists)
+check_function_exists (log HAVE_LOG)
+check_function_exists (exp HAVE_EXP)
+接下来，我们修改TutorialConfig.h.in，以便在CMake在平台上找到这些值时定义这些值，如下所示：
+
+#cmakedefine HAVE_LOG
+#cmakedefine HAVE_EXP
+Ps：对于log和exp的测试必须在TutorialConfig.h的configure_file命令之前完成。
+
+最后，在mysqrt函数中，如果log和exp在系统上可用，可以使用以下代码提供基于log和exp的替代实现：
+
+#if defined(HAVE_LOG) &amp;&amp; defined(HAVE_EXP)
+  result = exp(log(x) * 0.5);
+  fprintf(stdout, "Computing sqrt of %g to be %g using log\n", x, result);
+#else
+  double delta;
+  result = x;
+  // do ten iterations
+  int i;
+  for (i = 0; i &lt; 10; ++i) {
+    if (result &lt;= 0) {
+      result = 0.1;
+    }
+    delta = x - (result * result);
+    result = result + 0.5 * delta / result;
+    fprintf(stdout, "Computing sqrt of %g to be %g\n", x, result);
+  }
+#endif
+此时，我们可以再次编译并运行来看下效果： 
+title
+
+添加已生成的文件和生成器（第五步）
+在本节中，我们将展示如何将生成的源文件添加到应用程序的构建过程中。 
+在此例中，我们会创建一个预先计算好的平方根的表，并将这个表编译到应用程序中去。 
+为了实现这一点，我们首先需要一个生成表的程序。在MathFunctions子目录中，创建一个MakeTable.cpp文件。
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+int main (int argc, char *argv[])
+{
+  int i;
+  double result;
+  // make sure we have enough arguments
+  if (argc &lt; 2)
+    {
+    return 1;
+    }
+  // open the output file
+  FILE *fout = fopen(argv[1],"w");
+  if (!fout)
+    {
+    return 1;
+    }
+  // create a source file with a table of square roots
+  fprintf(fout,"double sqrtTable[] = {\n");
+  for (i = 0; i &lt; 10; ++i)
+    {
+    result = sqrt(static_cast<double>(i));
+    fprintf(fout,"%g,\n",result);
+    }
+  // close the table with a zero
+  fprintf(fout,"0};\n");
+  fclose(fout);
+  return 0;
+}
+注意，上述c++代码可以用于生成一个文件，并且文件名是通过参数传入的。 
+下一步是向MathFunctions目录下的CMakeLists.txt文件添加适当的命令，从而构建可执行文件，然后将其作为构建过程的一部分运行。 
+我们需要几个命令来实现这一点，如下所示：
+
+add_executable(MakeTable MakeTable.cpp)
+add_custom_command (
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+  COMMAND MakeTable ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+  DEPENDS MakeTable
+  )
+include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+add_library(MathFunctions mysqrt.cpp ${CMAKE_CURRENT_BINARY_DIR}/Table.h )
+首先，就像添加任何其他可执行文件一样，我们需要添加MakeTable的可执行文件。 
+然后添加一个自定义命令，指定如何通过运行MakeTable生成Table.h文件。 
+接下来，我们必须让CMake知道mysqrt.cpp依赖于生成的文件Table.h。 
+我们还必须将当前二进制目录添加到include目录列表中，这样就可以通过mysqrt.cpp找到和包含Table.h。 
+当该项目被构建时，它将首先构建可执行的可执行文件。 
+然后，它将运行MakeTable来生成Table.h。 
+最后，它将编译mysqrt.cpp，其中包括Table.h生成的MathFunctions库。 
+此时，包含我们添加的所有特性的外层CMakeLists.txt文件如下所示：
+
+cmake_minimum_required (VERSION 2.6)
+project (Tutorial)
+include(CTest)
+# The version number.
+set (Tutorial_VERSION_MAJOR 1)
+set (Tutorial_VERSION_MINOR 0)
+# does this system provide the log and exp functions?
+include (${CMAKE_ROOT}/Modules/CheckFunctionExists.cmake)
+check_function_exists (log HAVE_LOG)
+check_function_exists (exp HAVE_EXP)
+# should we use our own math functions
+option(USE_MYMATH 
+  "Use tutorial provided math implementation" ON)
+# configure a header file to pass some of the CMake settings
+# to the source code
+configure_file (
+  "${PROJECT_SOURCE_DIR}/TutorialConfig.h.in"
+  "${PROJECT_BINARY_DIR}/TutorialConfig.h"
+  )
+# add the binary tree to the search path for include files
+# so that we will find TutorialConfig.h
+include_directories ("${PROJECT_BINARY_DIR}")
+# add the MathFunctions library?
+if (USE_MYMATH)
+  include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
+  add_subdirectory (MathFunctions)
+  set (EXTRA_LIBS ${EXTRA_LIBS} MathFunctions)
+endif (USE_MYMATH)
+# add the executable
+add_executable (Tutorial tutorial.cxx)
+target_link_libraries (Tutorial  ${EXTRA_LIBS})
+# add the install targets
+install (TARGETS Tutorial DESTINATION bin)
+install (FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h"        
+         DESTINATION include)
+# does the application run
+add_test (TutorialRuns Tutorial 25)
+# does the usage message work?
+add_test (TutorialUsage Tutorial)
+set_tests_properties (TutorialUsage
+  PROPERTIES 
+  PASS_REGULAR_EXPRESSION "Usage:.*number"
+  )
+#define a macro to simplify adding tests
+macro (do_test arg result)
+  add_test (TutorialComp${arg} Tutorial ${arg})
+  set_tests_properties (TutorialComp${arg}
+    PROPERTIES PASS_REGULAR_EXPRESSION ${result}
+    )
+endmacro (do_test)
+# do a bunch of result based tests
+do_test (4 "4 is 2")
+do_test (9 "9 is 3")
+do_test (5 "5 is 2.236")
+do_test (7 "7 is 2.645")
+do_test (25 "25 is 5")
+do_test (-25 "-25 is 0")
+do_test (0.0001 "0.0001 is 0.01")
+TutorialConfig.h.in文件如下：
+
+#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
+#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@
+#cmakedefine USE_MYMATH
+#cmakedefine HAVE_LOG
+#cmakedefine HAVE_EXP
+MathFunctions目录下的CMakeLists.txt文件如下：
+
+add_executable(MakeTable MakeTable.cpp)
+add_custom_command (
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+  DEPENDS MakeTable
+  COMMAND MakeTable ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+  )
+include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+add_library(MathFunctions mysqrt.cpp ${CMAKE_CURRENT_BINARY_DIR}/Table.h)
+install (TARGETS MathFunctions DESTINATION bin)
+install (FILES MathFunctions.h DESTINATION include)
+此时，再次构建后，我们可以进入MathFunctions目录，将会看到我们构建过程中生成的Table.h文件： 
+title
+
+构建安装程序（第六步）
+最后假设我们想要把我们的工程发布给别人从而让他们去使用。 
+我们想要同时给他们不同平台的二进制文件和源代码。 
+这与步骤3中的install略有不同，install是安装我们从源代码中构建的二进制文件，而在此例中，我们将要构建安装包来支持二进制安装以及cygwin，debian，RPMs等的包管理特性。 
+为了达到这个目的，我们会使用CPack来创建平台相关的安装包。 
+具体地说，我们需要在顶层CMakeLists.txt文件中的底部添加数行内容：
+
+include (InstallRequiredSystemLibraries)
+set (CPACK_RESOURCE_FILE_LICENSE  
+     "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
+set (CPACK_PACKAGE_VERSION_MAJOR "${Tutorial_VERSION_MAJOR}")
+set (CPACK_PACKAGE_VERSION_MINOR "${Tutorial_VERSION_MINOR}")
+include (CPack)
+这就是我们需要做的全部工作。 
+我们首先引入了InstallRequiredSystemLibraries。这个库将会包含当前平台所需要的所有运行时库。 
+接下来，我们设置了一些CPack的变量来保存license以及工程的版本信息。版本信息利用了我们在早前的教程中使用到的变量。 
+最后我们包含了CPack这个模块来使用这些变量和你所使用的系统的其它特性来设置安装包。
+
+下一步是以通常的方式构建项目，然后在其上运行CPack。 
+建立二进制发布包的方式：
+
+cpack --config CPackConfig.cmake
+title 
+建立源码发布包的方式：
+
+cpack --config CPackSourceConfig.cmake
+title
+
+支持Dashboard（第七步）
+将测试结果提交到仪表板是非常容易的。 
+在本教程的前面的步骤中，我们已经为项目定义了许多测试。 
+我们只需要运行这些测试并把它们提交到仪表板上即可。 
+为了包括对仪表板的支持，我们将CTest模块包括在外层CMakeLists.txt文件中：
+
+include (CTest)
+我们还需要创建一个CTestConfig.cmake文件，可以在其中为仪表板指定该项目的名称：
+
+set (CTEST_PROJECT_NAME "Tutorial")
+此时，在运行ctest命令时，将会读取该目录。
+
+  </double></math.h></stdlib.h></stdio.h></math.h></stdlib.h></stdio.h></stdlib.h></stdio.h></stdio.h></math.h></stdlib.h></stdio.h></math.h></stdlib.h></stdio.h>

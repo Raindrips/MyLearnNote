@@ -56,6 +56,8 @@ public static Object Instantiate(Object original,Vector3 position,Quaternion rot
 
 可以生成传入的对象,也可以使用泛型的方式
 
+示例
+
 ## GameObject 对象
 
 | 变量              | 说明                                         |
@@ -93,6 +95,48 @@ public static Object Instantiate(Object original,Vector3 position,Quaternion rot
 | FindGameObjectsWithTag | 返回具体tag标签的激活的游戏对象列表，如果没有找到则为空。 |
 | FindWithTag            | 返回标记为tag的一个游戏对象，如果没有找到对象则为空       |
 
+```c#
+
+public class Shoot : MonoBehaviour {
+    //组建添加与访问 类方法声明public 属性
+    public gameObject;
+
+    //通过子类对象获取节点
+    gameObject.GetCompoent<>();
+
+    //向某位置旋转
+    transform.LookAt(Vector3);
+
+    //获取世界坐标位置
+    const Positon LossyScale;
+    //返回父级
+    root;
+    //改变父级
+    parent;
+    //返回子物体数量
+    childCount
+}
+```
+
+## transform
+
+```c#
+//每次旋转
+transform.Rotata(Vector3,Time.daaltaTime,Space.World)
+
+//找到prefab节点并返回
+Find(String name);
+    
+FindGameObjectWithTag();
+
+IsChildOf()
+//将节点隐藏
+setActivity()
+
+//不断移动物体
+Translate();
+```
+
 
 
 ## 预制体
@@ -102,7 +146,8 @@ public static Object Instantiate(Object original,Vector3 position,Quaternion rot
 可以将预设体文件直接拖拽入“层次面板”中，他会自动克隆一个对象出现。我们可以借助Unity引擎自带的文件装载API实现动态加载。
 
 ```c#
-Instantiate(prefab)
+//生成预制件
+Instantiate(prefab);
 Missile missileCopy =Instantiate<Missile>(missile);
 ```
 
@@ -111,4 +156,12 @@ Missile missileCopy =Instantiate<Missile>(missile);
  需要将预设体文件拽入场景中，然后通过"监视体面板"修改对应的数据。修改后的游戏对象保存的时候需要点击“监视体面板”中的"Apply"按钮实现真的保存。
 
 *预设体的克隆对象数据更改不会影响你的母版文件，所以可以放心大胆的使用克隆体*
+
+-------------
+
+
+
+[游戏网址](game.ceeger.com)
+
+mixamo 骨骼绑定软件
 

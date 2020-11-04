@@ -1,3 +1,0 @@
-修改git配置,
-
-git config --global core.quotepath false

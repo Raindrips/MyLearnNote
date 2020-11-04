@@ -1,0 +1,7 @@
+
+
+```
+app.gradle
+	minifyEnable false
+```
+
