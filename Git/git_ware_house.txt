@@ -1,0 +1,53 @@
+
+--初始化仓库
+git init
+
+添加文件到版本库
+git add [file]
+
+git commit
+	-m 提交注释
+	-a 提交所有文件
+	--amend 更正最后一次提交命令
+
+#查看仓库状态
+git status
+
+
+git checkout [bransh] #切换分支
+		-- [file]  #检查未提交的操作,并删除回滚
+		HEAD [file]
+							
+
+#删除暂存区文件
+git rm
+	--catch 仅删除改动文件
+	
+#重命名文件
+git mv [旧文件] [新文件]
+
+
+#提交日志
+git log
+	--decorate 显示指向的分支
+	--all 显示所有分支
+	
+
+#回滚指定提交处
+git reset
+
+#删除暂存区
+git rm catched 
+
+#远程推送
+git remote add origin 'git address'
+
+#推送后开始上传
+git push -u origin 'bransh'
+ 
+#拉取分支
+git pull  
+
+#创建分支
+git bransh [bransh]
+

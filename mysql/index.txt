@@ -1,0 +1,10 @@
+
+CREATE TABLE `table_name`(
+	PRIMARY KEY `id`
+)CHARSET=utf8;
+
+insert into [table] values();
+
+#倒序排序
+select * from [table] order by
+

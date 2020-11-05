@@ -1,0 +1,31 @@
+mysql
+	-u 用户名
+	-p [密码]
+	-h 主机连接的主机名 默认为本地连接
+	
+>>>
+help			? \h \? 		显示命令
+edit 			\edit				使用编辑器
+exit | quit \q        退出Mysql
+go				\g 					执行命令
+source 			\.				从指定文件执行mysql
+status			\s				显示服务器状态
+system <command>	\!	执行一个系统命令
+tee<file>		\T				把所有输出的副本添加到指定文件中
+use<database>	\u      使用指定的数据库
+
+create <database_name>	创建一个新的数据库
+drop <database_name>		删除一个数据库
+password <new_password>	修改密码
+ping										检查服务器是否运行
+status									重载控制权限的grant表
+shutdown								停止服务器
+variables								显示控制mysql操作的变量及当前值
+version									提供服务器的版本号以及它持续运营时间
+
+cmd命令
+mysqladmin				快速管理mysql
+mysqldump					以sql命令的形式将数据库导出到一个单独文件中
+mysqlimport				批量将数据导入到一个表中
+mysqlshow					了解mysql安装及数据库信息
+
