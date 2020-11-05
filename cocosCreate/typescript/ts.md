@@ -3,24 +3,24 @@
 ts常用配置方案
 
 ```json
-    {
-      "compilerOptions": {
+{
+    "compilerOptions": {
         "module": "commonjs",
         "lib": [ "es2015", "es2017", "dom" ],
         "target": "es5",
         "experimentalDecorators": true,
         "skipLibCheck": true,
         "outDir": "temp/vscode-dist"
-      },
-      "exclude": [
+    },
+    "exclude": [
         "node_modules",
         "library",
         "local",
         "temp",
         "build",
         "settings"
-      ]
-    }
+    ]
+}
 ```
 
 使用装饰器声明类属性
