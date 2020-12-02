@@ -41,7 +41,7 @@ node:cc.Node
 
 生命周期回调函数主要有
 
-- onLoad
+- load
 - start
 - update
 - lateUpdate
@@ -49,7 +49,7 @@ node:cc.Node
 - onEnable
 - onDisable
 
-#### onLoad
+### load
 
 在节点首次激活时触发,通常我们会在 `onLoad` 阶段去做一些初始化相关的操作
 
@@ -67,9 +67,7 @@ node:cc.Node
 
 ### onEnable
 
-当组件的 `enabled` 属性或者 `active`从 `false` 变为 `true` 时，会激活 `onEnable` 回调。
-
-倘若节点第一次被创建且 `enabled` 为 `true`，则会在 `onLoad` 之后，`start` 之前被调用。
+当组件的 `enabled` 属性或者 `active`从 `false` 变为 `true` 时，会激活 `onEnable` 回调。倘若节点第一次被创建且 `enabled` 为 `true`，则会在 `onLoad` 之后，`start` 之前被调用。
 
 ### onDisable
 
@@ -94,7 +92,49 @@ node:cc.Node
 ```ts
 //访问组件下的node节点
 this.node;
+//节点名称
+this.name;
+
+let interval=0.5;
+let timer;
+schedule(callback,0.5,)
 ```
 
 
 
+## 脚本执行顺序
+
+### 使用统一的控制脚本来初始化其他脚本
+
+```js
+// Game.js
+
+const Player = require('Player');
+const Enemy = require('Enemy');
+const Menu = require('Menu');
+
+cc.Class({
+    extends: cc.Component,
+    properties: {
+        player: Player,
+        enemy: Enemy,
+        menu: Menu
+    },
+
+    onLoad: function () {
+        this.player.init();
+        this.enemy.init();
+        this.menu.init();
+    }
+});
+```
+
+### 设置组件优先级
+
+组件的 executionOrder。executionOrder ,默认为0,只对onLoad`、`onEnable`、`start`、`update` 和 `lateUpdate有效
+
+```js
+editor: {
+    executionOrder: -1
+},
+```
