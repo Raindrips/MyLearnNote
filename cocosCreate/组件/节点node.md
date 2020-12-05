@@ -87,10 +87,11 @@ this.node.setContentSize(cc.size(100, 100));
 
 ```tsx
 //加载场景  MyScene 表示的是场景的名称
-bundle.loadScene('MyScene', (err, scene)=> {
-    //切换场景
-    cc.director.runScene(scene);
-});
+ //切换场景
+cc.director.loadScene('1');
+
+//运行动态场景
+cc.director.runScene(scene)
 ```
 
 
