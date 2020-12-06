@@ -1,0 +1,32 @@
+
+
+在类定义的第一行加入Q_OBJECT宏
+signals:
+	信号
+	
+ emit dlgReturn(value);  //发射信号
+
+public slots:
+	定义槽
+
+connect(控件,SIGNAL(clicked()),接收控件,SLOT(close()));
+
+
+QTimer::singleShot
+
+QTimer::singleShot(10, this,SLOT(eventOperation()));
+
+//添加图片
+QImage img;
+img.load(":res/123.png");
+QPixmap pixmap=QPixmap::fromImage (img);
+ui->label->setPixmap(pixmap);
+
+  QImage::Format_RGB32
+  QImage::Format_RGB888
+  typedef unsigned int QRgb;   
+  
+  
+  //约束设置的主窗口的最大/最小值
+  SetDefaultConstraint
+  

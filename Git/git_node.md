@@ -37,7 +37,7 @@ Git是一个**版本控制**的工具,版本控制是一种记录一个或若干
 
 **全局设置:**首先要设置一个用户名和邮箱,才能使用,格式如下
 
-```shell
+```sh
 git config --global user.name "用户名"
 git config --global user.email "邮箱账号@qq.com"
 ```
@@ -62,7 +62,7 @@ git commit -m [提交的内容注释]
 
 移除文件
 
-```shell
+```sh
 git rm [file] 
 	--cached [file]  #不删除物理文件，只将add进缓存的文件删除。
 	-r #有目录的话加此参数
@@ -107,7 +107,7 @@ git reset
 ```sh
 #修改分支
 git checkout
-	-- [file] 撤销工作区的修改	
+	--[file] 撤销工作区的修改
 ```
 
 
