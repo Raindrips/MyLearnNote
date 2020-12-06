@@ -20,8 +20,8 @@ git config --global core.quotepath false
 
 **问题**:`git add`时出现`warning: LF will be replaced by CRLF in ...`
 
-```shell
-git config –global core.autocrlf false; 
+```sh
+git config --global core.autocrlf false
 ```
 
 
@@ -29,7 +29,7 @@ git config –global core.autocrlf false;
 显示项目目录
 
 ```shell
-git config –list
+git config --list
 ```
 
 # Git恢复 git rm -rf 的文件
