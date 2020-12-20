@@ -1,0 +1,18 @@
+
+//正常的对象转换
+dynamic_cast <new_type> (expression)
+
+//可以在完全不相干的对象之间转换
+reinterpret_cast <new_type> (expression)
+
+//向父级转换
+static_cast <new_type> (expression)
+
+//将const类型进行转换
+const_cast <new_type> (expression)
+
+
+(new_type) expression
+new_type (expression)
+
+

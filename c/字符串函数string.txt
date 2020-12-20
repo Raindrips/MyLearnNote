@@ -1,0 +1,112 @@
+﻿/*
+	1,puts/gets
+	 puts用来把s指向的字符串输出到终端
+	 int puts(const char *s);
+	 返回值:
+		成功返回一个非负数
+		失败返回-1
+		
+	gets用来从终端输入一个字符串，保存到s指向的内存空间
+	char *gets(char *s);
+	返回值:
+		成功返回到的字符串的首地址
+		失败返回NULL
+	eg:
+		char str[10]={0};
+		gets(str);
+		puts(str);
+
+	注意:gets有巨大的bug,gets函数不考虑保存字符串的空间大小是否够用，超出了
+	 分配范围还会继续写数据，可能会改变其他的变量的数据(可以用fgets)
+	  (1)gets不会获取换行符，但是能获取空格和tab，而scanf不能获取空格和tab
+	  (2)puts会自动换行
+	  
+	2.strcpy/strncpy
+	NAME
+       strcpy, strncpy - copy a string
+
+SYNOPSIS
+       #include <string.h>
+	
+	strcpy:字符串拷贝函数(copy)。用来把src指向的字符串，宝贝到dest指向的内存中去，包括'\0'。
+       char *strcpy(char *dest, const char *src);
+			dest:指向目标内存
+			src:指向原始的字符串
+		返回值:
+			如果成功，返回拷贝后字符串首地址，即dest的首地址
+			如果失败，返回NULL
+		注意:此函数也有一个BUG(你懂得)，strcpy没有考虑内存越界的问题 
+
+	strncpy正是为了修复strcpy这个函数的Bug的，它的功能与strcpy类似，只不过它顶多拷贝n个字节
+       char *strncpy(char *dest, const char *src, size_t n);
+	   strncpy实际拷贝多少个字节呢?
+	   (1)遇到'\0'拷贝结束
+	   (2)即使没有遇到'\0'，但是已经拷贝了n个字节，也拷贝结束
+	     ('\0'没来得急拷贝，所以拷贝的不是字符串)
+		 
+	3,strcat/strncat
+NAME
+       strcat, strncat - concatenate two strings
+
+SYNOPSIS
+       #include <string.h>
+
+	strcat用来把src指向的字符串拷贝到dest指向的字符串的末尾(从'\0'开始，覆盖掉'\0')。
+       char *strcat(char *dest, const char *src);
+			dest：指向保存目标字符串的空间，应该足够大
+			src: 指向原始字符串
+		返回值:
+			如果成功，返回连接后字符串的首地址,即dest的地址
+			如果失败，返回NULL
+		注意: strcat也有一个BUG
+
+	strncat功能与strcat类似，只不过它顶多拷贝n个字节
+       char *strncat(char *dest, const char *src, size_t n);
+	    strncat实际拷贝多少个字节呢?
+	   (1)遇到'\0'拷贝结束
+	   (2)即使没有遇到'\0'，但是已经拷贝了n个字节，也拷贝结束
+	     (注意strncat会自动加一个'\0')
+		 
+	4,strlen
+	NAME
+       strlen - calculate the length of a string
+
+SYNOPSIS
+       #include <string.h>
+
+	strlen用来求s指向的字符串的长度
+	字符串长度:是指字符串里面包含字符的个数,不算后面的'\0'
+       size_t strlen(const char *s);
+	   
+	5,strcmp/strncmp
+NAME
+       strcmp, strncmp - compare two strings
+
+SYNOPSIS
+       #include <string.h>
+
+	strcmp用来比较两个字符串
+	那么字符串怎么比较呢?
+	都从第一个字符开始，一个字符一个字符比较ASCII码的大小
+	
+	if c1 > c2,则返回1
+	if c1 < c2,则返回-1
+	if c1 == c2,则继续比较下一个，如果全部相等返回0
+       int strcmp(const char *s1, const char *s2);
+
+	strncmp功能与strcmp类似，它顶多比较前n个字符
+       int strncmp(const char *s1, const char *s2, size_t n);
+
+
+
+
+*/
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+	printf("%d\n",strncmp("123","1234",3));
+	
+	return 0;
+}

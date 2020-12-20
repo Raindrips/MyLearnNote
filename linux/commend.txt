@@ -7,3 +7,13 @@ find ./ -name *.log|xargs du -ch
 
 统计文件夹
  -sh * | sort -rn
+ 
+ 
+ C:
+全局变量应增加 g_ 前缀
+静态变量应增加 s_ 前缀
+
+文件命名采用小写字符
+
+
+ sed -i "s/..\/cocos2d\//..\/..\/cocos2d/g" 213123123123213.txt

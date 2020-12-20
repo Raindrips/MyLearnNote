@@ -1,0 +1,11 @@
+//提高运行速度,原因不明
+
+static const auto io_sync_off = []()
+{
+    // turn off sync
+    std::ios::sync_with_stdio(false);
+      std::cin.tie(nullptr);
+    return nullptr;
+}();  
+// untie in/out streams
+

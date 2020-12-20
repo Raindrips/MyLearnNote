@@ -1,0 +1,7 @@
+MessageBoxA(0, "456", "123", 0);
+
+ShellExecuteA(0, "open", "http://www.baidu.com", 0, 0, 1);
+
+//线程休眠
+Sleep(int timer);
+
