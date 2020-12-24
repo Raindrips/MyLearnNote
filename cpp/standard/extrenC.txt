@@ -1,0 +1,29 @@
+enum class <flag>{
+	on;
+	off
+}
+flag <flag2>
+flag2::off
+
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+	int sum(int a,int b);
+
+#ifdef __cplusplus
+}
+#endif
+
+
+explicit 关键字
+
+class Test{
+	explicit Test(int i			//防止自赋值
+	
+	Test& operator=(Student &s)  //自定义自赋值
+}
+
+Test t=i		//error
