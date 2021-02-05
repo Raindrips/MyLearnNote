@@ -115,7 +115,7 @@ x 向右,y 向上,z 向外
 通过 `new cc.Node()`,并通过场景`addChild`添加
 
 ```js
-start: function () {
+start () {
     //创建新节点
     var node = new cc.Node('Sprite');
     //添加脚本组件
@@ -130,16 +130,12 @@ start: function () {
 
 ​	可以通过 `cc.instantiate` 方法完成
 
-```js
-cc.Class({
-    extends: cc.Component,
-    properties: {
-        target: {
-            default: null,
-            type: cc.Node,
-        },
-    },
-    start: function () {
+```ts
+class NewClass{
+    @properties(cc.Node)
+    target:cc.Node;
+
+    start() {
         var scene = cc.director.getScene();
         //复制节点
         var node = cc.instantiate(this.target);
@@ -154,25 +150,19 @@ cc.Class({
 和克隆已有节点相似，你可以设置一个预制（Prefab）并通过 `cc.instantiate` 生成节点。使用方法如下：
 
 ```js
-cc.Class({
-    extends: cc.Component,
+class NewClass{
+    @properties(cc.Prefab)
+    target:cc.Prefab;
 
-    properties: {
-        target: {
-            default: null,
-            type: cc.Prefab,
-        },
-    },
-
-    start: function () {
+    start() {
         //获取场景
         var scene = cc.director.getScene();
         //生成预制节点
         var node = cc.instantiate(this.target);
         node.parent = scene;
         node.setPosition(0, 0);
-    },
-});
+    }
+};
 ```
 
 ### 销毁节点
@@ -209,5 +199,14 @@ let pos=this.node.convertToNodeSpaceAR(w_pos);
 
 //获取当前事件节点坐标
 let w_pos=this.node.convertToWorldSpaceAR(pos);
+```
+
+## 常驻节点
+
+常驻节点不会被立即销毁
+
+```ts
+// 将该节点添加为常驻节点
+cc.game.addPersistRootNode(this.node);          
 ```
 
