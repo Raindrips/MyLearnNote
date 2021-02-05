@@ -6,7 +6,7 @@
 
 > 目前的解决办法是 在火狐浏览器地址栏输入about:config , 然后选了解风险, 然后搜索这个首选项privacy.file_unique_origin,把值改成false
 
-也可以在html文件中添加 --allow-file-access-from-files 来解决。
+也可以在html文件中添加 `--allow-file-access-from-files` 来解决。
 
 
 

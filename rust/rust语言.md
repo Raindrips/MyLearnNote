@@ -27,5 +27,8 @@
 rustc main.rs
 ```
 
+## 连接
 
+rust教程
+https://www.yiibai.com/rust/rust-trait.html
 
