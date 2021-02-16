@@ -1,0 +1,9 @@
+# 错误解决方案
+git add出现 "fatal: in unpopulated submodule XXX" 错误+
+因为hexo-theme-matery是从另一个第三方的仓库克隆的，在执行git add的时候"fatal: in unpopulated submodule hexo-theme-matery" 错误
+
+```
+git rm -rf --cached [file]
+git add [file]/*
+```
+

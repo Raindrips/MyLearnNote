@@ -1,6 +1,20 @@
 # 重拾Activity
 
++ Activity是一个应用程序组建
++ 为应用程序提供一个可视化页面
++ 用户通过此页面与应用程序进行交互
+
+
+
 ## Activity的本质
+
++ Mainifast.xml
++ MainActivity
++ Layout(通过setConentView)
+
+
+
+
 
 
 
@@ -9,7 +23,8 @@
 ### Activity的交互
 
 ```java
-
+//通过id获取控件
+TextView textView =(TextView)findViewById(R.id.xxx);
 ```
 
 

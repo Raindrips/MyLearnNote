@@ -1,7 +1,6 @@
 
 
 ```
-app.gradle
-	minifyEnable false
+
 ```
 
