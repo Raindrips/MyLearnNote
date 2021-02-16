@@ -1,0 +1,12 @@
+//返回字符串函数
+int strlen(const char* str)
+
+//返回
+
+//在参数 str 所指向的字符串的前 n 个字节中搜索第一次出现字符 c（一个无符号字符）的位置。
+void *memchr(const void *str, int c, size_t n)
+
+
+//在参数 str 所指向的字符串中搜索第一次出现字符 c（一个无符号字符）的位置。
+char *strchr(const char *str, int c)
+

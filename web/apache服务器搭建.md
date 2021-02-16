@@ -1,6 +1,6 @@
 ## apache服务器搭建
 
-[下载地址](https://www.apachelounge.com/download/)
+windows环境[下载地址](https://www.apachehaus.com/cgi-bin/download.plx)
 
 下载好之后解压,进入解压后的文件目录,修改配置文件`文件目录\conf\httpd.conf`
 
@@ -12,7 +12,7 @@ Define SRVROOT "c:/Apache24"
 ServerRoot "${SRVROOT}"
 ```
 
-启动http服务
+启动http服务,将`index.html`文件放入`文件目录\hdocs`下
 ```sh
 # 启动命令
 httpd.exe
@@ -24,3 +24,4 @@ httpd.exe -k install
 httpd.exe -k uninstall
 ```
 `Apache24\bin\`
+

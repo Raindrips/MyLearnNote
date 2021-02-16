@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+//返回不与任何文件重名的有效文件名
+char* tmpnam(char* s);
+
+//安全性高,替代tmpnam
+mkstemp
+
+//创建临时文件
+File* tmpfile();

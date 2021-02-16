@@ -1,64 +1,12 @@
-# 层级关系
+# 节点Node
 
-## 场景
-
-`Scene`
-
-+ 场景大小不能更改
-+ 场景不能嵌套使用
-
-## 层
-
-父节点与子节点的关系,子节点相对于父节点存在的
-
-## 节点
-
-+ 节点没有大小
-
-## 脚本执行顺序
-
-### 使用统一的控制脚本来初始化其他脚本
-
-```js
-// Game.js
-
-const Player = require('Player');
-const Enemy = require('Enemy');
-const Menu = require('Menu');
-
-cc.Class({
-    extends: cc.Component,
-    properties: {
-        player: Player,
-        enemy: Enemy,
-        menu: Menu
-    },
-
-    onLoad: function () {
-        this.player.init();
-        this.enemy.init();
-        this.menu.init();
-    }
-});
-```
-
-### 设置组件优先级
-
-组件的 executionOrder。executionOrder ,默认为0,只对onLoad`、`onEnable`、`start`、`update` 和 `lateUpdate有效
-
-```js
-editor: {
-    executionOrder: -1
-},
-```
-
-## 脚本的属性编辑
+## 节点的属性
 
 ```tsx
 //禁用节点 同时，它所有子节点，以及子节点上的组件也会跟着被禁用
 this.node.active = false;
 
-activeInHierarchy;	//判断是否激活,如果没有被添加到场景中,是无法激活的
+this.node.activeInHierarchy;	//判断是否激活,如果没有被添加到场景中,是无法激活的
 
 this.node.x = 100;
 this.node.y = 50;
@@ -75,22 +23,6 @@ this.node.setScale(2);
 // 更改节点尺寸	
 this.node.setContentSize(100, 100);
 this.node.setContentSize(cc.size(100, 100));
-```
-
-## 游戏场景
-
-游戏场景也是显示给玩家查看的一个舞台,每一个游戏场景,都包含了一个节点树,通过每个节点树进行管理
-
-游戏场景保存文件格式为 `.fire`,在cocos creator中,后缀是不显示的,不同类型的名称同样不允许重复
-
-使用脚本进行场景的切换
-
-```tsx
-//加载场景  MyScene 表示的是场景的名称
-bundle.loadScene('MyScene', (err, scene)=> {
-    //切换场景
-    cc.director.runScene(scene);
-});
 ```
 
 
@@ -170,11 +102,11 @@ mySprite.node.opacity = 128;
 + 上面的节点会被下面的节点遮挡
 + 子节点永远都会遮盖住父节
 
-### 坐标
+**坐标**
 
-x 向右，y 向上，z 向外
+x 向右,y 向上,z 向外
 
- **节点（Node）** 之间可以有父子关系的层级结构，我们修改节点的 **位置（Position）** 属性设定的节点位置是该节点相对于父节点的 **本地坐标系** 
+**节点（Node）** 之间可以有父子关系的层级结构，我们修改节点的 **位置（Position）** 属性设定的节点位置是该节点相对于父节点的 **本地坐标系** 
 
 ## 创建和销毁节点
 
@@ -183,7 +115,7 @@ x 向右，y 向上，z 向外
 通过 `new cc.Node()`,并通过场景`addChild`添加
 
 ```js
-start: function () {
+start () {
     //创建新节点
     var node = new cc.Node('Sprite');
     //添加脚本组件
@@ -198,16 +130,12 @@ start: function () {
 
 ​	可以通过 `cc.instantiate` 方法完成
 
-```js
-cc.Class({
-    extends: cc.Component,
-    properties: {
-        target: {
-            default: null,
-            type: cc.Node,
-        },
-    },
-    start: function () {
+```ts
+class NewClass{
+    @properties(cc.Node)
+    target:cc.Node;
+
+    start() {
         var scene = cc.director.getScene();
         //复制节点
         var node = cc.instantiate(this.target);
@@ -222,25 +150,19 @@ cc.Class({
 和克隆已有节点相似，你可以设置一个预制（Prefab）并通过 `cc.instantiate` 生成节点。使用方法如下：
 
 ```js
-cc.Class({
-    extends: cc.Component,
+class NewClass{
+    @properties(cc.Prefab)
+    target:cc.Prefab;
 
-    properties: {
-        target: {
-            default: null,
-            type: cc.Prefab,
-        },
-    },
-
-    start: function () {
+    start() {
         //获取场景
         var scene = cc.director.getScene();
         //生成预制节点
         var node = cc.instantiate(this.target);
         node.parent = scene;
         node.setPosition(0, 0);
-    },
-});
+    }
+};
 ```
 
 ### 销毁节点
@@ -267,5 +189,24 @@ node.removeFromChild();
 let childern=node.childern;
 //子节点通过子节点名称进行查找
 let child=node.getChildernName('子节点名称');
+```
+
+## 坐标系转换
+
+```ts
+//获取当前节点的相对路径
+let pos=this.node.convertToNodeSpaceAR(w_pos);	
+
+//获取当前事件节点坐标
+let w_pos=this.node.convertToWorldSpaceAR(pos);
+```
+
+## 常驻节点
+
+常驻节点不会被立即销毁
+
+```ts
+// 将该节点添加为常驻节点
+cc.game.addPersistRootNode(this.node);          
 ```
 
