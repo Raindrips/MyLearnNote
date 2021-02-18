@@ -76,7 +76,7 @@ git config --global user.email "[email address]"
  git commit --amend [file1] [file2] ...
 ```
 
-### 分支
+## 分支
 
 ```sh
 # 列出所有本地分支
@@ -122,6 +122,25 @@ git config --global user.email "[email address]"
  git push origin --delete [branch-name]
  git branch -dr [remote/branch]
 ```
+
+### 整理分支
+
+```sh
+# 将分支内容复制过来
+git rebase [branch-name]
+
+# 交互式命令整理commit
+git rebase --interactive [-i] HEAD~4
+```
+
+### 分拣分支
+
+```sh
+#将多个分支中的commit复制到当前分支中来
+git Cherry-pick [commit] ...
+```
+
+
 
 ### 标签
 
@@ -289,12 +308,11 @@ git config --global user.email "[email address]"
 # 生成一个可供发布的压缩包
  git archive
  
- 
 ```
 
 ### 删除工作区内容
 
-```
+```sh
 ## 删除暂存区内容
 git rm --cached 
 ```
@@ -307,6 +325,5 @@ git gc
 
 ## 查看跟踪的文件
 git ls-tree -r master --name-only
-
 ```
 
