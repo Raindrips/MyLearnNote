@@ -1,6 +1,8 @@
-# Visual studio 所有秘钥
+## Visual studio 所有秘钥
+
 ## 2010
-`YCFHQ-9DWCY-DKV88-T2TMH-G7BHP`
+Microsoft Visual Studio 2010 `YCFHQ-9DWCY-DKV88-T2TMH-G7BHP`
+
 ## 2012
 - Microsoft Visual Studio Ultimate 2012
  `YKCW6-BPFPF-BT8C9-7DCTH-QXGWC或YQ7PR-QTHDM-HCBCV-9GKGG-TB2TM`
@@ -22,6 +24,7 @@
 `MHG9J-HHHX9-WWPQP-D8T7H-7KCQG`
 
 ## 2015
+
 - Visual Studio Professional 2015  专业版
 `HMGNV-WCYXV-X7G9W-YCX63-B98R2`
 
@@ -43,3 +46,4 @@
 
 - Visual Studio 2019 Professional 专业版
 `NYWVH-HT4XC-R2WYW-9Y3CM-X4V3Y`
+
